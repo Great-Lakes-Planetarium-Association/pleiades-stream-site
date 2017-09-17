@@ -1,8 +1,14 @@
+//Name: Pleiades Streaming Site
+//Author: PxO Ink LLC
+//License: Proprietary. Unlimited Use by GLPA. 
+//Copyright: 2017 PxO Ink LLC. Unlimited Use by GLPA.  
+
 //Import Foundation.
-@import 'foundation';
+@import 'vendor/foundation';
 
 //Activate Foundation.
 @include foundation-everything;
+@include foundation-grid;
 
 //Import vendor components. 
 @import 'vendor/sobar';

@@ -1,1 +1,10 @@
- 
+//Override colors.
+$foundation-palette: (
+  primary: #143153,
+  secondary: #2B4A6F,
+  success: #0E5441,
+  warning: #806815,
+  alert: #803C15,
+);
+$body-background: #051C38;
+$body-font-color: $white;
