@@ -1,0 +1,11 @@
+//Import Foundation.
+@import 'foundation';
+
+//Activate Foundation.
+@include foundation-everything;
+
+//Import vendor components. 
+@import 'vendor/sobar';
+
+//Import custom components.
+@import 'include/layout';

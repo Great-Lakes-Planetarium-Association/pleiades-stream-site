@@ -1,6 +1,6 @@
 {
 	"name": "pleiades-stream",
-	"version": "0.0.1",
+	"version": "0.1.7",
 	"description": "Foundation based SPA.",
 	"main": "index.js",
 	"scripts": {},
@@ -21,12 +21,15 @@
 		"gulp-if": "^2.0.2",
 		"gulp-imagemin": "^3.2.0",
 		"gulp-jshint": "^2.0.4",
+		"gulp-modernizr": "^1.0.0-alpha",
 		"gulp-notify": "^3.0.0",
 		"gulp-rename": "^1.2.2",
 		"gulp-replace": "^0.5.4",
+		"gulp-rm": "^1.0.4",
 		"gulp-sass": "^3.1.0",
 		"gulp-sourcemaps": "^2.6.0",
 		"gulp-uglify": "^2.1.2",
+		"jquery": "^3.2.1",
 		"jshint": "^2.9.4",
 		"sobar": "^0.0.3",
 		"yargs": "^8.0.1"

@@ -2,16 +2,18 @@
 var	argv		=	require('yargs').argv;
 var	autoprefix	=	require('gulp-autoprefixer');
 var	cache		=	require('gulp-cache');
+var	cssnano		=	require('gulp-cssnano');
 var	concat		=	require('gulp-concat');
 var	fs			=	require('fs'); 
 var	gulp		=	require('gulp');
 var	gulpif		=	require('gulp-if');
 var imagemin	=   require('gulp-imagemin');
 var	jshint		=	require('gulp-jshint');
-var	cssnano		=	require('gulp-cssnano');
+var	modernizr	=	require('gulp-modernizr');
 var notify	  	=   require('gulp-notify');
 var	rename		=	require('gulp-rename');
 var replace		=	require('gulp-replace');
+var	rm			=	require('gulp-rm'); 
 var	sass		=	require('gulp-sass');
 var sourcemaps	=	require('gulp-sourcemaps');
 var	uglify		=	require('gulp-uglify');
@@ -47,13 +49,23 @@ if (version[2] + increment >= 10) {
 }
 
 //Rebuild the version. 
-version	=	version.join('.'); 
+version				=	version.join('.'); 
+
+//Clean CSS.
+gulp.task('clean-css', function() {
+	//Run Gulp.
+	return gulp.src([
+		'./src/scss/vendor/foundation.scss'
+	], {read: false})
+		.pipe(rm());
+});
 
 //Copy CSS.
 gulp.task('copy-css', function() {
 	//Run Gulp.
 	return gulp.src([
-		'./node_modules/sobar/css/sobar.css'
+		'./node_modules/sobar/css/sobar.css',
+		'./node_modules/foundation-sites/scss/foundation.scss'
 	])
 		.pipe(rename(function(path) {
 			path.extname = '.scss'; 
@@ -66,7 +78,23 @@ gulp.task('copy-fonts', function() {
 	//Run Gulp.
 	return gulp.src([
 	])
-		.pipe(gulp.dest('./fonts'));
+		.pipe(gulp.dest('./public/fonts'));
+});
+
+//Copy JS.
+gulp.task('copy-js', function() {
+	//Run Gulp.
+	return gulp.src([
+		'./node_modules/jquery/dist/jquery.js', 
+	])
+		.pipe(gulpif(!dev, uglify({'preserveComments': 'license'}).on('error', notify.onError(function(error) {
+			//Log to the console.
+			console.error(error);
+			
+			//Return the error.
+			return error;
+		}))))
+		.pipe(gulp.dest('./public/js'));
 });
 
 //Copy images.
@@ -76,6 +104,16 @@ gulp.task('copy-images', function() {
 		'./node_modules/sobar/images/*.svg'
 	])
 		.pipe(gulp.dest('./src/images'));
+});
+
+//Replace CSS.
+gulp.task('replace-css', ['copy-css', 'copy-fonts'], function() {
+	//Replace settings file. 
+	return gulp.src('./src/scss/vendor/foundation.scss')
+		.pipe(replace(/(.*)\/\/ @import \'settings\/settings\';(.*)/g, '$1' + 
+				"@import 'settings/settings';\r\n@import 'include/settings';" + '$2'))
+				
+		.pipe(gulp.dest('./src/scss/vendor'));
 });
 
 //Sass.
@@ -101,7 +139,7 @@ gulp.task('sass', function() {
 		.pipe(gulpif(!die, autoprefix({browsers: '> 5%'})))
 		.pipe(gulpif(!die, gulpif(!dev, cssnano())))
 		.pipe(gulpif(!die, gulpif(dev, sourcemaps.write())))
-		.pipe(gulpif(!die, gulp.dest('./css/')))
+		.pipe(gulpif(!die, gulp.dest('./public/css/')))
 });
 
 //Hint.
@@ -128,7 +166,7 @@ gulp.task('hint', function() {
 		.pipe(jshint.reporter('default')); 
 });
 
-//Hint.
+//JS.
 gulp.task('js', ['hint'], function() {
 	//Run Gulp.
 	return gulp.src([
@@ -142,8 +180,8 @@ gulp.task('js', ['hint'], function() {
 			//Return the error.
 			return error;
 		}))))
-		.pipe(concat('main.js'))
-		.pipe(gulp.dest('./js/'));
+		.pipe(concat('scripts.js'))
+		.pipe(gulp.dest('./public/js/'));
 });
 
 //Images.
@@ -156,7 +194,22 @@ gulp.task('images', function() {
 			progressive: true, 
 			svgoPlugins: [{removeViewBox: false}]
 		})))
-		.pipe(gulp.dest('./images/'));
+		.pipe(gulp.dest('./public/images/'));
+});
+
+//Modernizr. 
+gulp.task('modernizr', ['js'], function() {
+	//Run Gulp.
+	return gulp.src(['./public/js/**/*', '!./public/js/modernizr.js'])
+		.pipe(modernizr())
+		.pipe(gulpif(!dev, uglify({'preserveComments': 'license'}).on('error', notify.onError(function(error) {
+			//Log to the console.
+			console.error(error);
+			
+			//Return the error.
+			return error;
+		}))))
+		.pipe(gulp.dest('./public/js'));
 });
 
 //Version control.
@@ -180,4 +233,4 @@ gulp.task('watch', function() {
 });
 
 //Task runner. 
-gulp.task('default', ['copy-css', 'copy-fonts', 'copy-images', 'sass', 'js', 'images', 'watch', 'version']);
+gulp.task('default', ['copy-js', 'replace-css', 'copy-images', 'sass', 'modernizr', 'images', 'watch', 'version']);
