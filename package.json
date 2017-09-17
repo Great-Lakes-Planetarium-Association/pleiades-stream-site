@@ -1,0 +1,34 @@
+{
+	"name": "pleiades-stream",
+	"version": "0.0.1",
+	"description": "Foundation based SPA.",
+	"main": "index.js",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "https://pxoink@bitbucket.org/pxoink/pleiades-stream-site.git"
+	},
+	"author": "PxO Ink LLC",
+	"private": true,
+	"license": "Proprietary",
+	"dependencies": {
+		"foundation-sites": "6.4.3",
+		"gulp": "^3.9.1",
+		"gulp-autoprefixer": "^3.1.1",
+		"gulp-cache": "^0.4.6",
+		"gulp-concat": "^2.6.1",
+		"gulp-cssnano": "^2.1.2",
+		"gulp-if": "^2.0.2",
+		"gulp-imagemin": "^3.2.0",
+		"gulp-jshint": "^2.0.4",
+		"gulp-notify": "^3.0.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-replace": "^0.5.4",
+		"gulp-sass": "^3.1.0",
+		"gulp-sourcemaps": "^2.6.0",
+		"gulp-uglify": "^2.1.2",
+		"jshint": "^2.9.4",
+		"sobar": "^0.0.3",
+		"yargs": "^8.0.1"
+	}
+}
