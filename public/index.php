@@ -27,7 +27,7 @@
 		</header>
 		<section>
 			<section class="row">
-				<main class="column small-12 medium-9">
+				<main class="column small-12 medium-8">
 					<div class="callout alert">
 						Our broadcast has not yet begun.
 						We'll begin transmitting for paper sessions in the morning on Thursday, October 20.
@@ -39,37 +39,48 @@
 							</li>
 							<li>
 								<a href="#video" class="button" data-stream-type="">
-									Video 1
+									Video Stream
 								</a>
 							</li>
 							<li>
 								<a href="#video" class="button" data-stream-type="">
-									Video 2
+									Youtube Live
 								</a>
 							</li>
 							<li>
 								<a href="#video" class="button" data-stream-type="">
-									Video 3
+									UStream Live
 								</a>
 							</li>
 							<li>
 								<a href="#video" class="button" data-stream-type="">
-									Audio
+									Audio Only
 								</a>
 							</li>
 						</ul>
 					</nav>
-					<div id="video" class="responsive-embed">
+					<div id="video" class="responsive-embed widescreen">
 
 					</div>
+					<div id="audio">
+
+					</div>
+					<hr />
+					<h2>Schedule</h2>
+					<?php include_once(__DIR__ . '/schedule.php'); ?>
 				</main>
-				<aside class="column show-for-medium medium-3">
+				<aside class="column show-for-medium medium-4">
+					<div id="chat" class="responsive-embed">
+						<iframe width="550" height="350" scrolling="no" frameborder="0"
+							src="http://widget.mibbit.com/?settings=6b61402d79f6884a6430829b2e5684e2&server=irc.mibbit.net%3A%2B6697&channel=%23pleiades-live"></iframe>
+					</div>
+					<hr />
 					<div id="twitter-widget"></div>
 				</aside>
 			</section>
 		</section>
-		<footer>
-
+		<footer class="text-center">
+			<p>Copyright &copy; <?php print(date('Y')); ?> GLPA. All Rights Reserved.</p>
 		</footer>
 		<script type="text/javascript" src="js/modernizr.js"></script>
 		<script type="text/javascript" src="js/jquery.js"></script>

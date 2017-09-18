@@ -19,11 +19,6 @@ nav {
 		li {
 			margin-bottom: $global-margin; 
 			margin-right: $global-margin;
-			
-			h2 {
-				padding: ($global-padding / 3) 0; 
-				font-size: rem-calc(20); 
-			} 
 		}
 	}
 }
@@ -34,4 +29,28 @@ nav {
 			margin: 0.75rem;
 		}
 	}
+}
+
+h2 {
+	font-size: rem-calc(23); 
+}
+
+h3 {
+	font-size: rem-calc(19);
+}
+
+.tabs-title {
+	a {
+		&:hover {
+			background-color: $tab-background-active;
+		}
+	}
+}
+
+.tabs-content {
+	border: 1px solid $tab-background-active;  
+}
+
+footer {
+	margin-top: $global-margin; 
 }

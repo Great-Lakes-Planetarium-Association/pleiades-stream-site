@@ -1,6 +1,6 @@
 {
 	"name": "pleiades-stream",
-	"version": "0.2.5",
+	"version": "0.2.7",
 	"description": "Foundation based SPA.",
 	"main": "index.js",
 	"scripts": {},

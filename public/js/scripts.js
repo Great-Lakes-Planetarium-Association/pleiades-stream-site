@@ -11845,15 +11845,22 @@ module.exports = __webpack_require__(19);
 	}
 }(window));
 /*
- * On load of the Twitter widgets 
+ * Run when the page is ready. 
+ */
+(function($) {
+	//Initiate Foundation.
+	$(document).foundation();
+}(jQuery));
+
+/*
+ * On load of the Twitter widget software.  
  */
 TwitterWidgetsLoader.load(function(twttr) {
 	twttr.widgets.createTimeline(
-			"600756918018179072",
+			"909592127721656321",
 			document.getElementById("twitter-widget"), 
 			{
-				theme: "dark", 
-				height: 400
+				theme: "dark"
 			}
 	);
 });
