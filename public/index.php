@@ -64,7 +64,7 @@
 					</div>
 				</main>
 				<aside class="column show-for-medium medium-3">
-
+					<div id="twitter-widget"></div>
 				</aside>
 			</section>
 		</section>
