@@ -1,5 +1,5 @@
 					<div id="schedule" class="row">
-						<div class="column small-4">
+						<div class="column small-12 medium-4">
 							<ul class="vertical tabs" data-tabs id="schedule-content">
 								<li class="tabs-title is-active">
 									<a href="#schedule-0" aria-selected="true">
@@ -13,7 +13,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="column small-8">
+						<div class="column small-12 medium-8">
 							<div class="tabs-content" data-tabs-content="schedule-content">
 								<div class="tabs-panel is-active" id="schedule-0">
 

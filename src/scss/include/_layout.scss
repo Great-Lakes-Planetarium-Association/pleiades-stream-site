@@ -7,6 +7,12 @@ body {
 	}
 }
 
+.logo {
+	@include breakpoint(small down) {
+		text-align: center;
+	}
+}
+
 .callout {
 	&.alert {
 		background-color: $alert-color;
@@ -48,7 +54,11 @@ h3 {
 }
 
 .tabs-content {
-	border: 1px solid $tab-background-active;  
+	border: 1px solid $tab-background-active;
+	
+	@include breakpoint(small down) {
+		margin-top: $global-margin; 
+	}
 }
 
 footer {

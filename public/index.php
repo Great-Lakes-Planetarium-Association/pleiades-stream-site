@@ -12,7 +12,7 @@
 	<body>
 		<header>
 			<div class="row">
-				<div class="column small-12 medium-2 large-1">
+				<div class="column small-12 medium-2 large-1 logo">
 					<img src="images/logo.png" alt="GLPA logo" />
 				</div>
 				<div class="column show-for-medium medium-7 large-9">
@@ -69,7 +69,7 @@
 					<h2>Schedule</h2>
 					<?php include_once(__DIR__ . '/schedule.php'); ?>
 				</main>
-				<aside class="column show-for-medium medium-4">
+				<aside class="column small-12 medium-4">
 					<div id="chat" class="responsive-embed">
 						<iframe width="550" height="350" scrolling="no" frameborder="0"
 							src="http://widget.mibbit.com/?settings=6b61402d79f6884a6430829b2e5684e2&server=irc.mibbit.net%3A%2B6697&channel=%23pleiades-live"></iframe>
