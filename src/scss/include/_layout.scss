@@ -1,3 +1,37 @@
 body {
-	
+	> * {
+		.row {
+			padding: $global-padding 0; 
+			background-color: $primary-color; 
+		}
+	}
+}
+
+.callout {
+	&.alert {
+		background-color: $alert-color;
+		color: $white; 
+	}
+}
+
+nav {
+	.menu {
+		li {
+			margin-bottom: $global-margin; 
+			margin-right: $global-margin;
+			
+			h2 {
+				padding: ($global-padding / 3) 0; 
+				font-size: rem-calc(20); 
+			} 
+		}
+	}
+}
+
+.sobar {
+	.social {
+		&.micro {
+			margin: 0.75rem;
+		}
+	}
 }
