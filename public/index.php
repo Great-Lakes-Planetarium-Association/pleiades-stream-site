@@ -1,13 +1,21 @@
+<?php include(__DIR__ . '/../private/json.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title></title>
+		<title><?php if (isset($state['data']['conference'])) print($state['data']['conference']); ?></title>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="author" content="GLPA" />
 		<link rel="group" href="humans.txt" />
 		<link rel="stylesheet" href="css/stylesheet.css" />
+	<?php if (isset($state['data']['background'])) { ?>
+		<style type="text/css">
+			body {
+				background-image: url('<?php print($state['data']['background']); ?>');
+			}
+		</style>
+	<?php } ?>
 	</head>
 	<body>
 		<header>
