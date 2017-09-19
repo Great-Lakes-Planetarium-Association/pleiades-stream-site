@@ -6,9 +6,9 @@ $foundation-palette: (
   warning: #332800,
   alert: #330300,
 );
-$light-gray: #777;
+$light-gray: #CCC;
 $medium-gray: #AAA;
-$dark-gray: #CCC;
+$dark-gray: #777;
 $black: #000;
 $white: #DDD;
 $body-background: #051C38;
@@ -20,3 +20,9 @@ $tab-active-color: $white;
 $tab-item-font-size: rem-calc(17);
 $tab-content-background: $body-background; 
 $tab-content-border: $primary-color;
+$tab-content-color: $white;
+$table-background: darken($dark-gray, 25%);
+$table-striped-background: darken($table-background, 5%);
+$table-head-background: $table-striped-background;
+$table-border: 1px solid $table-background;
+$table-head-font-color: $white; 

@@ -66,7 +66,6 @@
 
 					</div>
 					<hr />
-					<h2>Schedule</h2>
 					<?php include_once(__DIR__ . '/schedule.php'); ?>
 				</main>
 				<aside class="column small-12 medium-4">

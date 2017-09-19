@@ -70,6 +70,17 @@ h3 {
 		margin-top: $global-margin; 
 	}
 }
+.table-scroll {
+	table {
+		margin: 0; 
+		width: 100.00%;
+		
+		.highlight {
+			background-color: $tab-background-active;
+			font-style: italic; 
+		}
+	}
+}
 
 footer {
 	margin-top: $global-margin; 
