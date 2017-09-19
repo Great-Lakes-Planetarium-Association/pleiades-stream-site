@@ -2,7 +2,7 @@ body {
 	> * {
 		.row {
 			padding: $global-padding 0; 
-			background-color: $primary-color; 
+			background-color: darken($primary-color, 12.5%); 
 		}
 	}
 }
@@ -57,6 +57,10 @@ h3 {
 
 .tabs-title {
 	a {
+		&[aria-selected=true] {
+			background-color: $tab-background-active; 
+		}
+	
 		&:hover {
 			background-color: $tab-background-active;
 		}
@@ -70,6 +74,7 @@ h3 {
 		margin-top: $global-margin; 
 	}
 }
+
 .table-scroll {
 	table {
 		margin: 0; 

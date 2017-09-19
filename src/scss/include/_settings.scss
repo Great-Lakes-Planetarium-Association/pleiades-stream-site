@@ -1,23 +1,32 @@
 //Override colors.
 $foundation-palette: (
-  primary: #143153,
-  secondary: #2B4A6F,
+  primary: #0c4180,
+  secondary: #203b5d,
   success: #002218,
   warning: #332800,
   alert: #330300,
 );
-$light-gray: #CCC;
-$medium-gray: #AAA;
-$dark-gray: #777;
+
+$primary-color: get-color(primary); 
+$secondary-color: get-color(secondary);
+$success-color: get-color(success);
+$warning-color: get-color(warning);
+$alert-color: get-color(alert); 
+
+$light-gray: #CACACA;
+$medium-gray: #979797;
+$dark-gray: #656565;
 $black: #000;
-$white: #DDD;
-$body-background: #051C38;
+$white: #DCDCDC;
+$body-background: #01142b;
 $body-font-color: $white;
+$button-background: $primary-color; 
 $tab-background: $body-background; 
 $tab-background-active: $primary-color; 
 $tab-color: $white; 
 $tab-active-color: $white; 
 $tab-item-font-size: rem-calc(17);
+$tab-background-active: $primary-color; 
 $tab-content-background: $body-background; 
 $tab-content-border: $primary-color;
 $tab-content-color: $white;
