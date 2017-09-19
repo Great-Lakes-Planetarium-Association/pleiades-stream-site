@@ -41,6 +41,14 @@ nav {
 	}
 }
 
+h1 {
+	font-size: rem-calc(34);
+	
+	@include breakpoint(medium up) {
+		font-size: rem-calc(40); 
+	} 
+}
+
 h2 {
 	font-size: rem-calc(24); 
 }

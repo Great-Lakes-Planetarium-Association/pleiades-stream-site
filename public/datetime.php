@@ -1,7 +1,4 @@
 <?php
-	//Set the timezone to UTC.
-	date_default_timezone_set('America/Chicago');
-
 	//Get the offset in hours.
 	$timezone	=	filter_input(INPUT_GET, 'tz', FILTER_SANITIZE_NUMBER_INT);
 

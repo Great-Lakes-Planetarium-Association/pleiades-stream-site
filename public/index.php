@@ -2,17 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title><?php if (isset($state['data']['conference'])) print($state['data']['conference']); ?></title>
+		<title>
+			Watch Live at the <?php print(_vc($state, 'data', 'host')); ?> in
+			<?php print(_vc($state, 'data', 'location')); ?> | <?php print(_vc($state, 'data', 'conference'));?>
+		</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="author" content="GLPA" />
 		<link rel="group" href="humans.txt" />
 		<link rel="stylesheet" href="css/stylesheet.css" />
-	<?php if (isset($state['data']['background'])) { ?>
+	<?php if (_vc($state, 'data', 'background')) { ?>
 		<style type="text/css">
 			body {
-				background-image: url('<?php print($state['data']['background']); ?>');
+				background-image: url('<?php print(_vc($state, 'data', 'background')); ?>');
 			}
 		</style>
 	<?php } ?>
@@ -24,7 +27,7 @@
 					<img src="images/logo.png" alt="GLPA logo" />
 				</div>
 				<div class="column show-for-medium medium-7 large-9">
-					<h1>Live From the GLPA Conference</h1>
+					<h1><?php print(_vc($state, 'data', 'conference')); ?></h1>
 				</div>
 				<div class="column show-for-medium medium-3 large-2 text-right">
 					<a href="https://twitter.com/Pleiades_NPC" class="sobar" target="_blank" rel="noopener">
@@ -36,10 +39,11 @@
 		<section>
 			<section class="row">
 				<main class="column small-12 medium-8">
+				<?php if (_vc($state, 'data', 'announcement')) { ?>
 					<div class="callout alert">
-						Our broadcast has not yet begun.
-						We'll begin transmitting for paper sessions in the morning on Thursday, October 20.
+						<?php print(_vc($state, 'data', 'announcement')); ?>
 					</div>
+				<?php } ?>
 					<nav>
 						<ul class="menu">
 							<li>
@@ -79,15 +83,14 @@
 				<aside class="column small-12 medium-4">
 					<div id="chat">
 						<h2>Live Chat</h2>
-<?php $irc = 'http://webchat.quakenet.org/?channels=glpa-conference&uio=MT1mYWxzZSY5PXRydWUmMTE9MjA1b5&saturation=35&lightness=-25'; ?>
 						<div class="responsive-embed">
 							<iframe width="200" height="400" scrolling="no" frameborder="0"
-								src="<?php print($irc); ?>"></iframe>
+								src="<?php print(_vc($state, 'data', 'chat')); ?>"></iframe>
 						</div>
 						<span class="launch-live-chat button" data-hide="false">Launch Live Chat Applet</span>
 					</div>
 					<hr />
-					<div id="twitter-widget"></div>
+					<div id="twitter-widget" data-widget="<?php print(_vc($state, 'data', 'twitter')); ?>"></div>
 				</aside>
 			</section>
 		</section>
