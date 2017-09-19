@@ -45,6 +45,16 @@ h3 {
 	font-size: rem-calc(19);
 }
 
+#chat {
+	.responsive-embed {
+		padding-bottom: 125.00%;
+	} 
+	
+	.button {
+		width: 100.00%; 
+	}
+}
+
 .tabs-title {
 	a {
 		&:hover {

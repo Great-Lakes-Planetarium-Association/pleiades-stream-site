@@ -70,9 +70,14 @@
 					<?php include_once(__DIR__ . '/schedule.php'); ?>
 				</main>
 				<aside class="column small-12 medium-4">
-					<div id="chat" class="responsive-embed">
-						<iframe width="550" height="350" scrolling="no" frameborder="0"
-							src="http://widget.mibbit.com/?settings=6b61402d79f6884a6430829b2e5684e2&server=irc.mibbit.net%3A%2B6697&channel=%23pleiades-live"></iframe>
+					<div id="chat">
+						<h3>Live Chat</h3>
+<?php $irc = 'http://webchat.quakenet.org/?channels=glpa-conference&uio=MT1mYWxzZSY5PXRydWUmMTE9MjA1b5&saturation=80&lightness=0'; ?>
+						<div class="responsive-embed">
+							<iframe width="200" height="400" scrolling="no" frameborder="0"
+								src="<?php print($irc); ?>"></iframe>
+						</div>
+						<span class="launch-live-chat button" data-hide="false">Launch Live Chat Applet</span>
 					</div>
 					<hr />
 					<div id="twitter-widget"></div>

@@ -171,6 +171,7 @@ gulp.task('js', ['hint'], function() {
 	//Run Gulp.
 	return gulp.src([
 			'./node_modules/foundation-sites/dist/js/foundation.js',
+			'./node_modules/jquery.cookie/jquery.cookie.js', 
 			'./node_modules/twitter-widgets/index.js', 
 			'./src/js/**/*.js'
 		])
