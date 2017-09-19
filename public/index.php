@@ -70,7 +70,7 @@
 				</main>
 				<aside class="column small-12 medium-4">
 					<div id="chat">
-						<h3>Live Chat</h3>
+						<h2>Live Chat</h2>
 <?php $irc = 'http://webchat.quakenet.org/?channels=glpa-conference&uio=MT1mYWxzZSY5PXRydWUmMTE9MjA1b5&saturation=80&lightness=0'; ?>
 						<div class="responsive-embed">
 							<iframe width="200" height="400" scrolling="no" frameborder="0"
