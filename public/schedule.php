@@ -1,15 +1,25 @@
 				<?php include(__DIR__ . '/../private/json.php'); ?>
 				<?php
-					//If there are events.
-					if (isset($eventSet) && count($eventSet) > 0) {
+					//Get the event data.
+					$eventDays	=	(!isset($eventDays)) ? _vc($state, 'data', 'event_days') : $eventDays;
+
+					//Get the active day.
+					$active		=	_vc($state, 'data', 'active');
+
+					//If there are days of events.
+					if (count($eventDays) > 0) {
+						//Get the current year.
+						$activeTimestamp	=	strtotime(_vc($eventDays[$active['day']], 'date'));
 				?>
 					<div id="schedule" class="row">
 						<div class="column small-12 medium-3">
 							<h2>Schedule</h2>
+							<h3>For the year <?php print(date('Y', $activeTimestamp)); ?>:</h3>
 							<ul class="vertical tabs" data-tabs id="schedule-content">
-							<?php foreach($eventSet as $k => $day) { ?>
-								<li class="tabs-title<?php if (_vc($day, 'active')) { ?> is-active<?php } ?>">
-									<a href="#schedule-<?php print($k); ?>" aria-selected="true">
+							<?php foreach($eventDays as $k => $day) { ?>
+								<li class="tabs-title<?php if ($k === $active['day']) { ?> is-active<?php } ?>">
+									<a href="#schedule-<?php print($k); ?>"<?php
+										if ($k === $active['day']) { ?> aria-selected="true"<?php } ?>>
 										<?php print(_vc($day, 'dayString')); ?>
 									</a>
 								</li>
@@ -18,82 +28,95 @@
 						</div>
 						<div class="column small-12 medium-9">
 							<p class="text-right">
-								Current Time:
-								<span class="time"><?php include_once(__DIR__ . '/datetime.php'); ?></span>
+								It is currently
+								<span class="time" data-timezone="<?php print(_vc($state, 'data', 'timezone')); ?>">
+									<?php
+										//Set the timezone.
+										$timezone	=	_vc($state, 'data', 'timezone');
+
+										//Get the date time.
+										include_once(__DIR__ . '/datetime.php');
+									?>
+								</span>
 							</p>
 							<div class="tabs-content" data-tabs-content="schedule-content">
-							<?php foreach($eventSet as $k => $day) { ?>
-								<div class="tabs-panel <?php if (_vc($event, 'active')) { ?> is-active<?php } ?>"
+							<?php foreach($eventDays as $k => $day) { ?>
+								<div class="tabs-panel<?php if ($k === $active['day']) { ?> is-active<?php } ?>"
 									id="schedule-<?php print($k); ?>">
 									<div class="table-scroll">
 										<table class="stacked">
+											<colgroup>
+												<col style="width: 40%" />
+												<col style="width: 60%" />
+											</colgroup>
 											<thead>
 												<tr>
 													<th>Time</th>
 													<th>Title</th>
-													<th>Presenter</th>
 												</tr>
 											</thead>
 											<tbody>
-										<?php if (count(_vc($day, 'events')) > 0 ) { ?>
-											<?php foreach(_vc($day, 'events') as $k => $event) { ?>
-												<?php $tsSrt = strtotime(_vc($day, 'date') . _vc($event, 'start_time')); ?>
-												<?php $tsEnd = strtotime(_vc($day, 'date') . _vc($event, 'end_time')); ?>
-												<?php $hlght = (time() > $tsSrt && time() < $tsEnd) ? true : false; ?>
-												<tr<?php if ($hlght) { ?> class="highlight"<?php } ?>
-													data-hls="<?php ?>"
-													data-rtmp="<?php ?>"
-													data-youtube="<?php ?>"
-													data-audio="<?php ?>"
-													data-ustream="<?php ?>">
+								<?php
+									//Get the events.
+									$events	=	_vc($day, 'events');
+
+									//If there are events.
+									if (count($events) > 0 ) {
+										//For each event on this day.
+										foreach($events as $l => $event) {
+											//Get the timestamps.
+											$tsSrt	=	strtotime(_vc($day, 'date') . _vc($event, 'start_time'));
+											$tsEnd	=	strtotime(_vc($day, 'date') . _vc($event, 'end_time'));
+											$hlght	=	(time() > $tsSrt && time() < $tsEnd) ? true : false;
+								?>
+												<tr class="main-event<?php if ($hlght) { ?> highlight<?php } ?>">
 													<td>
-														<?php printf("%s - %s",
-																date('h:i A', $tsSrt),
+														<?php printf("%s - %s", date('h:i A', $tsSrt),
 																date('h:i A', $tsEnd)); ?>
 													</td>
-													<td><?php print(_vc($event, 'title')); ?></td>
-													<td><?php print(_vc($event, 'start_time')); ?></td>
+													<td><?php print(_vc($event, 'title')); ?></th>
 												</tr>
-											<?php } ?>
-												<tr>
+								<?php
+											//Get the streams.
+											$streams	=	_vc($event, 'children');
+
+											//If there are streams.
+											if ($streams && count($streams) > 0) {
+												//For each stream.
+												foreach($streams as $m => $stream) {
+													//Get the timestamps.
+													$tsSrt	=	strtotime(_vc($day, 'date') . _vc($stream, 'start_time'));
+													$tsEnd	=	strtotime(_vc($day, 'date') . _vc($stream, 'end_time'));
+													$hlght	=	(time() > $tsSrt && time() < $tsEnd) ? true : false;
+
+													//Get the concurrent streams.
+													$cStreams	=	_vc($stream, 'concurrent_streams');
+
+													//If there are streams.
+													if ($cStreams && count($cStreams) > 0) {
+														//For each stream.
+														foreach($cStreams as $cStream) {
+								?>
+												<tr class="sub-event<?php if ($hlght) { ?> highlight<?php } ?>">
 													<td>
-														9:00 PM - 9:15 PM
+														<?php printf("%s - %s", date('h:i A', $tsSrt),
+																date('h:i A', $tsEnd)); ?>
 													</td>
-													<td>
-														Title
-													</td>
-													<td>
-														Presenter
-													</td>
+													<td><?php print(_vc($cStream, 'title')); ?></th>
 												</tr>
-												<tr class="highlight">
-													<td>
-														9:15 PM - 9:45 PM
-													</td>
-													<td>
-														Title
-													</td>
-													<td>
-														Presenter
-													</td>
-												</tr>
-												<tr>
-													<td>
-														9:45 PM - 10:00 PM
-													</td>
-													<td>
-														Title
-													</td>
-													<td>
-														Presenter
-													</td>
-												</tr>
+								<?php
+														}
+													}
+												}
+											}
+										}
+									}
+								?>
 											</tbody>
 										</table>
 									</div>
 								</div>
 							<?php } ?>
-						<?php } ?>
 							</div>
 						</div>
 					</div>

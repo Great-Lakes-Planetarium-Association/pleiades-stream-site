@@ -54,7 +54,7 @@ h2 {
 }
 
 h3 {
-	font-size: rem-calc(20);
+	font-size: rem-calc(24);
 }
 
 #chat {
@@ -84,6 +84,12 @@ h3 {
 	
 	@include breakpoint(small down) {
 		margin-top: $global-margin; 
+	}
+}
+
+#schedule {
+	h3 {
+		font-size: rem-calc(16);
 	}
 }
 

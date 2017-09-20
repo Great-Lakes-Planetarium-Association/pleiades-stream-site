@@ -19,10 +19,10 @@
 				//For each parameter.
 				foreach($p as $param) {
 					//Add to the parameter.
-					$call	=	$call -> $param;
+					$call	=	(!isset($call -> $param)) ? null : $call -> $param;
 
 					//Check if the call exists.
-					if (!isset($call)) {
+					if (!isset($call) || !$call) {
 						//Return false.
 						return false;
 					}
@@ -93,36 +93,69 @@
 	if (!_vc($state, 'data')) trigger_error('"Resource information missing or invalid."', E_USER_ERROR);
 
 	//Set the timezone.
-	if (_vc($state, 'timezone')) date_default_timezone_set(_vc($state, 'timezone'));
+	if (_vc($state, 'data', 'timezone')) date_default_timezone_set(_vc($state, 'data', 'timezone'));
 
-	//Get the events.
-	$eventSet =	_vc($state, 'events');
+	//Set the event day as active.
+	$state -> data -> active	=	array('day' => 0, 'event' => 0, 'stream' => false);
 
-	//If there are events.
-	if (count($eventSet) > 0) {
+	//Get the events per day.
+	$eventDays =	_vc($state, 'data', 'event_days');
+
+	//If there are days of events.
+	if (count($eventDays) > 0) {
 		//For each event set.
-		foreach($eventSet as $k => $day) {
+		foreach($eventDays as $k => $day) {
 			//Get the date.
 			$ts	=	strtotime(_vc($day, 'date') . " 00:01:00");
 
-			//Set additional event day.
-			$day -> dayString	=	sprintf("%s, %s %s<sup>%s</sup>",
+			//Set additional information for the day.
+			$state -> data -> event_days[$k] -> dayString	=	sprintf("%s, %s %s<sup>%s</sup>",
 					date('D', $ts),
 					date('M', $ts),
 					date('j', $ts),
 					date('S', $ts)
-					);
+			);
+
+			//Get current event day information.
+			$thisDay	=	_vc($day, 'date');
 
 			//If the event is active.
-			if (_vc($day, 'date') == date('Y-m-d')) {
+			if ($thisDay == date('Y-m-d')) {
 				//Set the event day as active.
-				$state -> data -> active	=	$k;
-			}
-		}
+				$state -> data -> active['day']	=	$k;
 
-		//If there is no active status.
-		if (!_vc($state, 'data', 'active')) {
-			$state -> data -> active	=	"0:0";
+				//Run through each event.
+				foreach(_vc($day, 'events') as $l => $event) {
+					//Get the two timestamps.
+					$startTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($event, 'start_time')));
+					$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($event, 'end_time')));
+
+					//If the time matches.
+					if (time() >= $startTime && time() <= $endTime) {
+						//Set the state data.
+						$state -> data -> active['event']	=	$l;
+
+						//Get the children.
+						$childs	=	_vc($event, 'children');
+
+						//If there are children.
+						if (count($childs) > 0) {
+							//For each child.
+							foreach($childs as $m => $child) {
+								//Get the two timestamps.
+								$startTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($child, 'start_time')));
+								$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($child, 'end_time')));
+
+								//If the time matches.
+								if (time() >= $startTime && time() <= $endTime) {
+									//Set the state data.
+									$state -> data -> active['stream']	=	$m;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 ?>

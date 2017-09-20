@@ -1,21 +1,20 @@
 <?php
 	//Get the offset in hours.
-	$timezone	=	filter_input(INPUT_GET, 'tz', FILTER_SANITIZE_NUMBER_INT);
+	$timezone	=	(!isset($timezone)) ? filter_input(INPUT_GET, 'tz', FILTER_SANITIZE_STRING) : $timezone;
 
-	//Get the timestamp.
-	$timestamp	=	(!$timezone) ? time() : strtotime("$timezone hours");
+	//Set the timezone.
+	date_default_timezone_set($timezone);
 
 	//Output the date.
-	printf("%s %s %s<sup>%s</sup> %s:%s:%s %s %s %s",
-			date('D', $timestamp),
-			date('M', $timestamp),
-			date('j', $timestamp),
-			date('S', $timestamp),
-			date('h', $timestamp),
-			date('i', $timestamp),
-			date('s', $timestamp),
-			date('A', $timestamp),
-			date('T', $timestamp),
-			(!$timezone) ? null : "$timezone:00"
+	printf("%s %s %s<sup>%s</sup> %s %s:%s %s %s",
+			date('D'),
+			date('M'),
+			date('j'),
+			date('S'),
+			date('Y'),
+			date('h'),
+			date('i'),
+			date('A'),
+			date('T')
 	);
 ?>

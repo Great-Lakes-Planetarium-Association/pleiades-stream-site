@@ -1,6 +1,13 @@
-<?php include(__DIR__ . '/../private/json.php'); ?>
+<?php
+	/**
+	 * Author: PxO Ink LLC (http://pxoink.net/)
+	 */
+
+	//Import all of the relevant content data.
+	include(__DIR__ . '/../private/json.php');
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-path="<?php print(rtrim($_SERVER['REQUEST_URI'], '/')); ?>">
 	<head>
 		<title>
 			Watch Live at the <?php print(_vc($state, 'data', 'host')); ?> in
@@ -44,10 +51,69 @@
 						<?php print(_vc($state, 'data', 'announcement')); ?>
 					</div>
 				<?php } ?>
-					<nav>
+				<?php
+					//Get the active data.
+					$active		=	_vc($state, 'data', 'active');
+
+					//Set active data if necessary.
+					$active['day']		=	(!isset($active['day']) || !$active['day']) ? 0 : $active['day'];
+					$active['event']	=	(!isset($active['event']) || !$active['event']) ? 0 : $active['event'];
+
+					//Get the event data.
+					$eventDays	=	(!isset($eventDays)) ? _vc($state, 'data', 'event_days') : $eventDays;
+
+					//If there is an active day.
+					if (isset($eventDays[$active['day']])) {
+						//Get the active day.
+						$activeDay	=	$eventDays[$active['day']];
+						$thisDay	=	_vc($activeDay, 'date');
+
+						//Get the events for the day.
+						if ($events = _vc($activeDay, 'events')) {
+							//If there is an active event.
+							if (isset($events[$active['event']])) {
+								//Get the current event.
+								$event	=	$events[$active['event']];
+
+								//If there are active streams.
+								if (!is_numeric($active['stream'])) {
+									//Get the title.
+									$title		=	_vc($event, 'title');
+
+									//Get the start and end times.
+									$startTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($event, 'start_time')));
+									$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($event, 'end_time')));
+								} else {
+									//Get all of the children.
+									$streams		=	_vc($event, 'children');
+
+									//If the child exists.
+									if (isset($streams[$active['stream']])) {
+										//Get the current stream.
+										$nowStream	=	$streams[$active['stream']];
+
+										//Get the title.
+										$title		=	_vc($nowStream, 'title');
+
+										//Get the start and end times.
+										$startTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($todayStream, 'start_time')));
+										$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($todayStream, 'end_time')));
+									}
+								}
+				?>
+					<div class="text-center">
+						<h2><?php print($title); ?></h2>
+						<p><?php printf("%s &mdash; %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?></p>
+					</div>
+				<?php
+							}
+						}
+					}
+				?>
+					<nav<?php if (!isset($nowStream)) { ?> class="hide"<?php } ?>>
 						<ul class="menu">
 							<li>
-								<h2>Choose a Stream:</h2>
+								<h3>Choose a Stream:</h3>
 							</li>
 							<li>
 								<a href="#video" class="button" data-stream-type="">
@@ -71,11 +137,13 @@
 							</li>
 						</ul>
 					</nav>
-					<div id="video" class="responsive-embed widescreen">
+					<div class="media<?php if (!isset($nowStream)) { ?> class="hide"<?php } ?>">
+						<div id="video" class="responsive-embed widescreen">
 
-					</div>
-					<div id="audio">
+						</div>
+						<div id="audio">
 
+						</div>
 					</div>
 					<hr />
 					<?php include_once(__DIR__ . '/schedule.php'); ?>
@@ -90,7 +158,7 @@
 						<span class="launch-live-chat button" data-hide="false">Launch Live Chat Applet</span>
 					</div>
 					<hr />
-					<div id="twitter-widget" data-widget="<?php print(_vc($state, 'data', 'twitter')); ?>"></div>
+					<div id="twitter-widget" data-widget="<?php print(_vc($state, 'data', 'twitter', 'id')); ?>"></div>
 				</aside>
 			</section>
 		</section>
