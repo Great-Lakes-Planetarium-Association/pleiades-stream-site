@@ -92,16 +92,19 @@
 										//Get the current stream.
 										$nowStream	=	$streams[$active['stream']];
 
+										//If there are cStreams.
+										$cStreams	=	_vc($nowStream, 'concurrent_streams');
+
 										//Get the title.
-										$title		=	_vc($nowStream, 'title');
+										$title		=	(!$cStreams) ? _vc($nowStream, 'title') : _vc($cStreams[0], 'title');
 
 										//Get the start and end times.
-										$startTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($todayStream, 'start_time')));
-										$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($todayStream, 'end_time')));
+										$startTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($nowStream, 'start_time')));
+										$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($nowStream, 'end_time')));
 									}
 								}
 				?>
-					<div class="text-center">
+					<div class="stream-title text-center">
 						<h2><?php print($title); ?></h2>
 						<p><?php printf("%s - %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?></p>
 					</div>
@@ -110,28 +113,64 @@
 						}
 					}
 				?>
+					<noscript>
+						<div class="callout alert">
+							You must have JavaScript enabled to choose a stream.
+						</div>
+					</noscript>
+					<nav<?php if (!isset($cStreams) || !$cStreams) { ?> class="hide"<?php } ?>>
+						<ul class="menu">
+							<li>
+								<h3>Choose an Event:</h3>
+							<?php foreach($cStreams as $i => $cStream) { ?>
+								<?php
+									$streamHls		=	null;
+									$streamRtmp		=	null;
+									$streamYoutube	=	null;
+									$streamUstream	=	null;
+									$streamAudio	=	null;
+								?>
+								<li>
+									<a href="#video" class="button <?php if ($i == 0) { ?>disabled<?php } ?>"
+										<?php if ($streamHls) { ?>data-hls="<?php print($streamHls); ?>"<?php } ?>
+										<?php if ($streamRtmp) { ?>data-rtmp="<?php print($streamRtmp); ?>"<?php } ?>
+										<?php if ($streamYoutube) { ?>data-youtube="<?php print($streamYoutube); ?>"<?php } ?>
+										<?php if ($streamUstream) { ?>data-ustream="<?php print($streamUstream); ?>"<?php } ?>
+										<?php if ($streamAudio) { ?>data-audio="<?php print($streamAudio); ?>"<?php } ?>>
+										<?php print(_vc($cStream, 'title')); ?>
+									</a>
+								</li>
+							<?php } ?>
+							</li>
+						</ul>
+					</nav>
 					<nav<?php if (!isset($nowStream)) { ?> class="hide"<?php } ?>>
 						<ul class="menu">
 							<li>
 								<h3>Choose a Stream:</h3>
 							</li>
-							<li>
-								<a href="#video" class="button" data-stream-type="">
-									Video Stream
+							<li class="video">
+								<a href="#video" class="button" data-stream="">
+									Video
 								</a>
 							</li>
-							<li>
-								<a href="#video" class="button" data-stream-type="">
-									Youtube Live
+							<li class="flash">
+								<a href="#video" class="button" data-stream="">
+									Flash
 								</a>
 							</li>
-							<li>
-								<a href="#video" class="button" data-stream-type="">
-									UStream Live
+							<li class="youtube">
+								<a href="#video" class="button" data-stream="">
+									Youtube
 								</a>
 							</li>
-							<li>
-								<a href="#video" class="button" data-stream-type="">
+							<li class="ustream">
+								<a href="#video" class="button" data-stream="">
+									UStream
+								</a>
+							</li>
+							<li class="audio">
+								<a href="#video" class="button" data-stream="">
 									Audio Only
 								</a>
 							</li>
