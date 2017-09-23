@@ -103,13 +103,19 @@
 										$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($nowStream, 'end_time')));
 									}
 								}
+							}
 				?>
-					<div class="stream-title text-center">
-						<h2><?php print($title); ?></h2>
-						<p><?php printf("%s - %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?></p>
+					<div class="stream-title" data-refresh="<?php print($endTime); ?>">
+						<h2>
+							Currently showing:
+							<?php print($title); ?>
+						</h2>
+						<p>
+							Airing between:
+							<?php printf("%s - %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?>
+						</p>
 					</div>
 				<?php
-							}
 						}
 					}
 				?>
@@ -118,20 +124,46 @@
 							You must have JavaScript enabled to choose a stream.
 						</div>
 					</noscript>
-					<nav<?php if (!isset($cStreams) || !$cStreams) { ?> class="hide"<?php } ?>>
+					<nav class="event-chooser<?php if (!isset($cStreams) || !$cStreams) { ?> hide<?php } ?>">
 						<ul class="menu">
 							<li>
-								<h3>Choose an Event:</h3>
-							<?php foreach($cStreams as $i => $cStream) { ?>
-								<?php
-									$streamHls		=	null;
-									$streamRtmp		=	null;
-									$streamYoutube	=	null;
-									$streamUstream	=	null;
-									$streamAudio	=	null;
+								<h3>Ongoing Events:</h3>
+							<?php
+								//Get all the stream types.
+								$streams	=	_vc($state, 'data', 'streams');
+
+								foreach($cStreams as $i => $cStream) {
+									//Get the current stream.
+									$thisStream		=	(!isset($streams[_vc($cStream, 'stream')])) ? null :
+										$streams[_vc($cStream, 'stream')];
+
+									//If there is a stream.
+									if ($thisStream) {
+										//Get the streams.
+										$streamHls		=	sprintf("%s%s",
+												_vc($state, 'data', 'stream_url_prefixes', 'hls'),
+												_vc($thisStream, 'hls', 'url')
+										);
+										$streamRtmp		=	sprintf("%s%s",
+												_vc($state, 'data', 'stream_url_prefixes', 'rtmp'),
+												_vc($thisStream, 'rtmp', 'url')
+										);
+										$streamYoutube	=	sprintf("%s%s",
+												_vc($state, 'data', 'stream_url_prefixes', 'youtube'),
+												_vc($thisStream, 'youtube', 'url')
+										);
+										$streamUstream	=	sprintf("%s%s",
+												_vc($state, 'data', 'stream_url_prefixes', 'ustream'),
+												_vc($thisStream, 'ustream', 'url')
+										);
+										$streamAudio	=	sprintf("%s%s",
+												_vc($state, 'data', 'stream_url_prefixes', 'audio'),
+												_vc($thisStream, 'audio', 'url')
+										);
+									}
 								?>
 								<li>
-									<a href="#video" class="button <?php if ($i == 0) { ?>disabled<?php } ?>"
+									<a href="#video" class="button load-event<?php if ($i == 0) { ?> current<?php } ?>"
 										<?php if ($streamHls) { ?>data-hls="<?php print($streamHls); ?>"<?php } ?>
 										<?php if ($streamRtmp) { ?>data-rtmp="<?php print($streamRtmp); ?>"<?php } ?>
 										<?php if ($streamYoutube) { ?>data-youtube="<?php print($streamYoutube); ?>"<?php } ?>
@@ -144,46 +176,58 @@
 							</li>
 						</ul>
 					</nav>
-					<nav<?php if (!isset($nowStream)) { ?> class="hide"<?php } ?>>
+					<div class="media<?php if (!isset($nowStream)) { ?> hide<?php } ?>">
+						<div id="video" class="responsive-embed widescreen" data-stream=""
+							data-poster="<?php print(_vc($state, 'data', 'background')); ?>">
+							<iframe width="640" height="360" frameborder="0" src="<?php print($streamYoutube); ?>"></iframe>
+						</div>
+						<div id="audio">
+						<?php if ($streamAudio) { ?>
+							<div class="row">
+								<div class="column float-left medium-2">
+									<h3>Audio Player</h3>
+								</div>
+								<div class="column small-12 medium-10">
+									<audio controls>
+										<source type="audio/mpeg" src="<?php print($streamAudio); ?>" />
+									</audio>
+								</div>
+							</div>
+						<?php } ?>
+						</div>
+					</div>
+					<nav class="stream-chooser">
 						<ul class="menu">
 							<li>
-								<h3>Choose a Stream:</h3>
+								<h3>Stream Choice:</h3>
 							</li>
 							<li class="video">
-								<a href="#video" class="button" data-stream="">
+								<a href="#video" class="button load-player" data-stream="">
 									Video
 								</a>
 							</li>
 							<li class="flash">
-								<a href="#video" class="button" data-stream="">
+								<a href="#video" class="button load-player" data-stream="">
 									Flash
 								</a>
 							</li>
 							<li class="youtube">
-								<a href="#video" class="button" data-stream="">
+								<a href="#video" class="button load-player" data-stream="">
 									Youtube
 								</a>
 							</li>
 							<li class="ustream">
-								<a href="#video" class="button" data-stream="">
+								<a href="#video" class="button load-player" data-stream="">
 									UStream
 								</a>
 							</li>
 							<li class="audio">
-								<a href="#video" class="button" data-stream="">
+								<a href="#audio" class="button load-player" data-stream="">
 									Audio Only
 								</a>
 							</li>
 						</ul>
 					</nav>
-					<div class="media<?php if (!isset($nowStream)) { ?> hide<?php } ?>">
-						<div id="video" class="responsive-embed widescreen">
-
-						</div>
-						<div id="audio">
-
-						</div>
-					</div>
 					<hr />
 					<?php include_once(__DIR__ . '/schedule.php'); ?>
 				</main>

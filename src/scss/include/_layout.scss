@@ -29,6 +29,10 @@ nav {
 		li {
 			margin-bottom: $global-margin; 
 			margin-right: $global-margin;
+			
+			h3 {
+				padding: (0.5 * $global-padding) 0; 
+			}
 		}
 	}
 }
@@ -54,7 +58,7 @@ h2 {
 }
 
 h3 {
-	font-size: rem-calc(24);
+	font-size: rem-calc(18);
 }
 
 #chat {

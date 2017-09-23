@@ -127,7 +127,7 @@ gulp.task('sass', function() {
 		.pipe(sass({
 			sourcemap: true, 
 			outputStyle: 'expanded',
-			includePaths: ['./node_modules/foundation-sites/scss']
+			includePaths: ['./node_modules/foundation-sites/scss', './node_modules/video.js/src/css']
 		}))
 		.on('error', notify.onError(function(error) {
 			//Set die as true.
@@ -173,6 +173,8 @@ gulp.task('js', ['hint'], function() {
 			'./node_modules/foundation-sites/dist/js/foundation.js',
 			'./node_modules/jquery.cookie/jquery.cookie.js', 
 			'./node_modules/twitter-widgets/index.js', 
+			'./node_modules/video.js/dist/video.js', 
+			'./node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.js', 
 			'./src/js/**/*.js'
 		])
 		.pipe(gulpif(!dev, uglify({'preserveComments': 'license'}).on('error', notify.onError(function(error) {
