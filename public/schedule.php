@@ -95,13 +95,15 @@
 													//If there are streams.
 													if ($cStreams && count($cStreams) > 0) {
 														//For each stream.
-														foreach($cStreams as $cStream) {
+														foreach($cStreams as $n => $cStream) {
 								?>
 												<tr class="sub-event<?php if ($hlght) { ?> highlight<?php } ?>">
-													<td>
+												<?php if ($n < 1) { ?>
+													<td rowspan="<?php print(count($cStreams)); ?>" class="concurrent">
 														<?php printf("%s - %s", date('h:i A', $tsSrt),
 																date('h:i A', $tsEnd)); ?>
 													</td>
+												<?php } ?>
 													<td><?php print(_vc($cStream, 'title')); ?></th>
 												</tr>
 								<?php

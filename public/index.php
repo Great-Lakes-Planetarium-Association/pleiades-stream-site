@@ -103,7 +103,7 @@
 				?>
 					<div class="text-center">
 						<h2><?php print($title); ?></h2>
-						<p><?php printf("%s &mdash; %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?></p>
+						<p><?php printf("%s - %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?></p>
 					</div>
 				<?php
 							}
@@ -137,7 +137,7 @@
 							</li>
 						</ul>
 					</nav>
-					<div class="media<?php if (!isset($nowStream)) { ?> class="hide"<?php } ?>">
+					<div class="media<?php if (!isset($nowStream)) { ?> hide<?php } ?>">
 						<div id="video" class="responsive-embed widescreen">
 
 						</div>

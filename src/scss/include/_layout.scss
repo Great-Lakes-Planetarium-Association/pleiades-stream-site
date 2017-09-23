@@ -102,6 +102,12 @@ h3 {
 			background-color: $tab-background-active;
 			font-style: italic; 
 		}
+		
+		.sub-event {
+			.concurrent {
+				vertical-align: top; 
+			}
+		}
 	}
 }
 
