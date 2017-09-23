@@ -11974,6 +11974,9 @@ module.exports = __webpack_require__(19);
  * Run when the page is ready. 
  */
 (function($) {
+	//Check flicker.
+	var	flicker		=	0;
+	
 	//Create a function for the time interval.
 	var	dateTime	=	function() {
 		//If the element exists.
@@ -11981,9 +11984,12 @@ module.exports = __webpack_require__(19);
 			//Set the html.
 			var html	=	'';
 			
+			//Update the flicker.
+			flicker		=	(!flicker) ? 1 : 0; 
+			
 			//Make the ajax request. 
 			$.ajax({
-				url: $('html').data('path') + '/datetime.php?tz=' + $('.time').data('timezone'), 
+				url: $('html').data('path') + '/datetime.php?tz=' + $('.time').data('timezone') + '&flicker=' + flicker, 
 				success: function(data) {
 					//Set the data.
 					html	=	data;

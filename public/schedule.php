@@ -68,6 +68,9 @@
 											$tsSrt	=	strtotime(_vc($day, 'date') . _vc($event, 'start_time'));
 											$tsEnd	=	strtotime(_vc($day, 'date') . _vc($event, 'end_time'));
 											$hlght	=	(time() > $tsSrt && time() < $tsEnd) ? true : false;
+
+											//If there is a title.
+											if (!_vc($event, 'hide')) {
 								?>
 												<tr class="main-event<?php if ($hlght) { ?> highlight<?php } ?>">
 													<td>
@@ -77,6 +80,8 @@
 													<td><?php print(_vc($event, 'title')); ?></th>
 												</tr>
 								<?php
+											}
+
 											//Get the streams.
 											$streams	=	_vc($event, 'children');
 
