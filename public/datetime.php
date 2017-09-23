@@ -7,7 +7,7 @@
 	date_default_timezone_set($timezone);
 
 	//Output the date.
-	printf("%s %s %s<sup>%s</sup> %s %s%s%s %s %s",
+	printf("%s, %s %s<sup>%s</sup> %s %s%s%s %s %s",
 			date('D'),
 			date('M'),
 			date('j'),
