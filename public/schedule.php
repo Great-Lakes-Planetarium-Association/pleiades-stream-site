@@ -109,7 +109,12 @@
 																date('h:i A', $tsEnd)); ?>
 													</td>
 												<?php } ?>
-													<td><?php print(_vc($cStream, 'title')); ?></th>
+													<td>
+														<?php print(_vc($cStream, 'title')); ?>
+														<small>
+															Presented by: <?php print(_vc($cStream, 'presenter')); ?>
+														</small>
+													</td>
 												</tr>
 								<?php
 														}
