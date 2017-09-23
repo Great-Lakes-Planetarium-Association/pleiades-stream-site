@@ -69,10 +69,14 @@
 											$tsEnd	=	strtotime(_vc($day, 'date') . _vc($event, 'end_time'));
 											$hlght	=	(time() > $tsSrt && time() < $tsEnd) ? true : false;
 
+											//Get the streams.
+											$streams	=	_vc($event, 'children');
+
 											//If there is a title.
 											if (!_vc($event, 'hide')) {
 								?>
-												<tr class="main-event<?php if ($hlght) { ?> highlight<?php } ?>">
+												<tr class="main-event<?php if ($hlght) { ?> highlight<?php } if (!$streams) {
+												?> no-concurrent<?php } ?>">
 													<td>
 														<?php printf("%s - %s", date('h:i A', $tsSrt),
 																date('h:i A', $tsEnd)); ?>
@@ -81,9 +85,6 @@
 												</tr>
 								<?php
 											}
-
-											//Get the streams.
-											$streams	=	_vc($event, 'children');
 
 											//If there are streams.
 											if ($streams && count($streams) > 0) {
@@ -111,6 +112,7 @@
 												<?php } ?>
 													<td>
 														<?php print(_vc($cStream, 'title')); ?>
+														<br />
 														<small>
 															Presented by: <?php print(_vc($cStream, 'presenter')); ?>
 														</small>
