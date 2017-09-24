@@ -158,14 +158,14 @@
 		var	$title	=	$('.stream-title');
 		
 		//When the current stream has expired.
-		if ($title.data('refresh') > (new Date().getTime() / 1000)) {
+		if ($title.data('refresh') < (new Date().getTime() / 1000)) {
 			//Set the stream title.
 			$title.html('<div class="callout warning">' + 
 					'<p>' + 
-						'<strong>The current stream has expired.</strong> ' + 
+						'<strong>The current live stream has ended.</strong> ' + 
 						"When you're ready for the next stream, " + 
 						'<a href="' + $('html').data('path') + '">click here to refresh</a> ' + 
-						'the page.' + 
+						'the page to watch the latest stream.' + 
 					'</p>' + 
 			'</div>');
 		}
