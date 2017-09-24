@@ -2,163 +2,172 @@
  * Run when the page is ready. 
  */
 (function($) {
-	/**
-	 * Create re-usable utilities. 
-	 */
+	//Create a set of re-usable utilities. 
 	var	mediaUtilities	=	{
 		/**
 		 * A function that sets all of the buttons for media usage. 
 		 */
-		setButtons: function($buttons, $current) {
-			//Remove the disabled class for the other buttons.
-			$current.parent().parent().find('.a').removeClass('disabled');
+		setButtons: function($event) {
+			//Set the event if no event is set.
+			$event	=	(!$event) ? $events.find('.load-event').first() : $event;
 			
-			//Set the current button to disabled.
-			$current.addClass('disabled'); 
+			//Find any disabled event buttons and enable them.
+			$events.find('.disabled').removeClass('disabled');
 			
-			//Show the buttons.
-			$buttons.removeClass('hide').show(); 
+			//Set the clicked event as disabled.
+			$event.addClass('disabled'); 
 			
-			//Set the default video value.
-			var	$defVideo	=	null;
+			//Reset the stream buttons and hide them. 
+			$streams.find('.load-stream').removeClass('disabled').attr('href', '').parent().stop().hide();
 			
-			//Hide all of the buttons.
-			$buttons.find('a').parent().hide();
-			
-			//Remove the current class from all buttons.
-			$buttons.find('a').removeClass('.disabled');
+			//Declare the default video value to be stored based upon what video is available below. 
+			var	$defaultVideo	=	null;
 			
 			/*
 			 * Based upon what data is available, show the appropriate button and set the stream data. 
 			 */
 			
-			if ($current.data('audio')) {
-				$defVideo	=	$buttons.find('.audio').find('.load-player');
-				$defVideo.attr('data-stream', $current.data('audio')); 
-				$defVideo.parent().show();
+			if ($event.data('audio')) {
+				$defaultVideo	=	$streams.find('.audio').find('.load-stream');
+				$defaultVideo.attr('href', $event.data('audio')).parent().stop().show();
 			}
 			
-			if ($current.data('rtmp')) {
-				$defVideo	=	$buttons.find('.flash').find('.load-player');
-				$defVideo.attr('data-stream', $current.data('rtmp')); 
-				$defVideo.parent().show();
+			if ($event.data('rtmp')) {
+				$defaultVideo	=	$streams.find('.flash').find('.load-stream');
+				$defaultVideo.attr('href', $event.data('rtmp')).parent().stop().show();
 			}
 			
-			if ($current.data('ustream')) {
-				$defVideo	=	$buttons.find('.ustream').find('.load-player');
-				$defVideo.attr('data-stream', $current.data('ustream')); 
-				$defVideo.parent().show();
+			if ($event.data('ustream')) {
+				$defaultVideo	=	$streams.find('.ustream').find('.load-stream');
+				$defaultVideo.attr('href', $event.data('ustream')).parent().stop().show();
 			}
 			
-			if ($current.data('youtube')) {
-				$defVideo	=	$buttons.find('.youtube').find('.load-player');
-				$defVideo.attr('data-stream', $current.data('youtube')); 
-				$defVideo.parent().show();
+			if ($event.data('youtube')) {
+				$defaultVideo	=	$streams.find('.youtube').find('.load-stream');
+				$defaultVideo.attr('href', $event.data('youtube')).parent().stop().show();
 			}
 			
-			if ($current.data('hls')) {
-				$defVideo	=	$buttons.find('.video').find('.load-player');
-				$defVideo.attr('data-stream', $current.data('hls')); 
-				$defVideo.parent().show();
-			} 
+			if ($event.data('hls')) {
+				$defaultVideo	=	$streams.find('.video').find('.load-stream');
+				$defaultVideo.attr('href', $event.data('hls')).parent().stop().show();
+			}
 			
-			//Click the video button to load the media player.
-			$defVideo.click(); 
-		},
+			//Set the default player. 
+			mediaUtilities.setPlayer($defaultVideo); 
+		}, 
 		/**
 		 * Replaces the player given a choice. 
 		 */
-		setPlayer: function($video, $audio, $current) {
-			//Get the stream.
-			var	stream	=	$current.data('stream'); 
+		setPlayer: function($stream) {
+			//Remove the disabled flag on each stream button.
+			$streams.find('.load-stream').removeClass('disabled');
 			
-			//Get the parent.
-			var	$parent	=	$current.parent(); 
+			//Set this stream as disabled.
+			$stream.addClass('disabled');
 			
-			//Remove the disabled button. 
-			$current.parent().parent().find('.load-player').removeClass('disabled');
-			
-			//Set the disabled button.
-			$current.addClass('disabled'); 
+			//Hide all applicable elements.
+			$video.stop().hide();
+			$audio.stop().hide();
 			
 			//Clear out the video content.
-			$video.html('').hide();
+			$video.html('');
 			
 			//Stop the audio player.
 			$audio.find('audio')[0].pause();
 			$audio.find('audio')[0].currentTime	=	0;
 			
-			//Hide the audio player.
-			$audio.hide();
-			
 			//Based on the parent class.
-			if ($parent.hasClass('video')) { 
+			if ($stream.parent().hasClass('video')) { 
 				//Add the html.
-				$video.html('<video id="hls" class="video-js" controls preload="auto" poster="' + $video.data('poster') + '">' + 
-						'<source src="' + stream + '" type="application/x-mpegURL" />' + 
-				'</video>').show();
+				$video.html('<video id="hls" class="video-js" controls poster="' + $video.data('poster') + '">' + 
+						'<source src="' + $stream.attr('href') + '" type="application/x-mpegURL" />' + 
+				'</video>').stop().show();
 				
 				//Activate the player.
-				videojs('hls'); 
-			} else if ($parent.hasClass('youtube')) {
+				videojs('hls', {}, function() {
+					$('.video-js').css({
+						'width': $('.responsive-embed.widescreen').width(),
+						'height': $('.responsive-embed.widescreen').outerHeight()
+					});
+				}); 
+			} else if ($stream.parent().hasClass('youtube')) {
 				//Add the html.
-				$video.html('<iframe width="640" height="360" frameborder="0" src="' + stream + '"></iframe>').show();
-			} else if ($parent.hasClass('ustream')) {
+				$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
+					.stop().show();
+			} else if ($stream.parent().hasClass('ustream')) {
 				//Add the html.
-				$video.html('<iframe width="640" height="360" frameborder="0" src="' + stream + '"></iframe>').show();
-			} else if ($parent.hasClass('rtmp')) {
+				$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
+					.stop().show();
+			} else if ($stream.parent().hasClass('rtmp')) {
 				//Add the html.
-				$video.html('<video id="rtmp" class="video-js" controls preload="auto" poster="' + $video.data('poster') + '">' + 
-						'<source src="' + stream + '" type="rtmp/mp4" />' + 
-				'</video>').show();
+				$video.html('<video id="rtmp" class="video-js" controls poster="' + $video.data('poster') + '">' + 
+						'<source src="' + $stream.attr('href') + '" type="rtmp/mp4" />' + 
+				'</video>').stop().show();
 				
 				//Activate the player.
-				videojs('rtmp', {techOrder: ['flash']}); 
-			} else if ($parent.hasClass('audio')) {
+				videojs('rtmp', {techOrder: ['flash']}, function() {
+					$('.video-js').css({
+						'width': $('.responsive-embed.widescreen').width(),
+						'height': $('.responsive-embed.widescreen').outerHeight()
+					});
+				}); 
+			} else if ($stream.parent().hasClass('audio')) {
 				//Hide the video player.
-				$video.hide();
+				$video.stop().hide();
 				
 				//Show the audio player.
-				$audio.show(); 
+				$audio.stop().show(); 
 			}
 		}
 	};
-
-	//Get the video player container.
-	var	$video		=	$('#video'); 
 	
-	//Get the audio player container.
+	//Get all applicable elements.
+	var	$video		=	$('#video');
 	var	$audio		=	$('#audio');
+	var	$events		=	$('.ongoing-events');
+	var	$streams	=	$('.ongoing-streams');
 	
-	//Get all of the events available.
-	var	$events		=	$('.event-chooser').find('.load-event');
+	//Hide all applicable elements.
+	$video.stop().hide();
+	$audio.stop().hide();
 	
-	//Get all of the buttons available.
-	var	$buttons	=	$('.stream-chooser');
-	var	$streams	=	$buttons.find('.load-player'); 
+	//Setup the buttons.
+	mediaUtilities.setButtons();
 	
-	//Pick the first event by default.
-	var	$current	=	$buttons.find('.disabled'); 
-	
-	//Set the appropriate class to disabled.
-	$current.addClass('disabled');
-	
-	//Hide the appropriate elements on the page. 
-	$video.hide();
-	$audio.hide();
-	
-	//When one of the buttons is clicked.
-	$streams.click(function(e) {
+	//When a stream is clicked.
+	$streams.find('.load-stream').click(function(e) {
 		//Prevent default.
 		e.preventDefault();
 		
-		//Set the player. 
-		mediaUtilities.setPlayer($video, $audio, $(this)); 
-		
-		//Return false.
-		return false;
+		//Load the player. 
+		mediaUtilities.setPlayer($(this));
 	});
 	
-	//Set the related buttons.
-	mediaUtilities.setButtons($buttons, $events.first()); 
+	//When an event is clicked.
+	$events.find('.load-event').click(function(e) {
+		//Prevent default.
+		e.preventDefault();
+		
+		//Set the buttons.
+		mediaUtilities.setButtons($(this));
+	});
+	
+	//Set an interval to check whether the stream has ended.
+	setInterval(function() {
+		//Get the stream title.
+		var	$title	=	$('.stream-title');
+		
+		//When the current stream has expired.
+		if ($title.data('refresh') > (new Date().getTime() / 1000)) {
+			//Set the stream title.
+			$title.html('<div class="callout warning">' + 
+					'<p>' + 
+						'<strong>The current stream has expired.</strong> ' + 
+						"When you're ready for the next stream, " + 
+						'<a href="' + $('html').data('path') + '">click here to refresh</a> ' + 
+						'the page.' + 
+					'</p>' + 
+			'</div>');
+		}
+	}, 5000);
 }(jQuery));

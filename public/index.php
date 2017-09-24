@@ -124,7 +124,7 @@
 							You must have JavaScript enabled to choose a stream.
 						</div>
 					</noscript>
-					<nav class="event-chooser<?php if (!isset($cStreams) || !$cStreams) { ?> hide<?php } ?>">
+					<nav class="ongoing-events<?php if (!isset($cStreams) || !$cStreams) { ?> hide<?php } ?>">
 						<ul class="menu">
 							<li>
 								<h3>Ongoing Events:</h3>
@@ -177,7 +177,7 @@
 						</ul>
 					</nav>
 					<div class="media<?php if (!isset($nowStream)) { ?> hide<?php } ?>">
-						<div id="video" class="responsive-embed widescreen" data-stream=""
+						<div id="video" class="responsive-embed widescreen"
 							data-poster="<?php print(_vc($state, 'data', 'background')); ?>">
 							<iframe width="640" height="360" frameborder="0" src="<?php print($streamYoutube); ?>"></iframe>
 						</div>
@@ -196,33 +196,33 @@
 						<?php } ?>
 						</div>
 					</div>
-					<nav class="stream-chooser">
+					<nav class="ongoing-streams">
 						<ul class="menu">
 							<li>
 								<h3>Stream Choice:</h3>
 							</li>
 							<li class="video">
-								<a href="#video" class="button load-player" data-stream="">
+								<a href="#video" class="button load-stream">
 									Video
 								</a>
 							</li>
 							<li class="flash">
-								<a href="#video" class="button load-player" data-stream="">
+								<a href="#video" class="button load-stream">
 									Flash
 								</a>
 							</li>
 							<li class="youtube">
-								<a href="#video" class="button load-player" data-stream="">
+								<a href="#video" class="button load-stream">
 									Youtube
 								</a>
 							</li>
 							<li class="ustream">
-								<a href="#video" class="button load-player" data-stream="">
+								<a href="#video" class="button load-stream">
 									UStream
 								</a>
 							</li>
 							<li class="audio">
-								<a href="#audio" class="button load-player" data-stream="">
+								<a href="#audio" class="button load-stream">
 									Audio Only
 								</a>
 							</li>
