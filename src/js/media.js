@@ -69,15 +69,16 @@
 			$video.stop().hide();
 			$audio.stop().hide();
 			
+			//Dispose of the player.
+			if ($('#hls').length) videojs('hls').dispose();
+			if ($('#rtmp').length) videojs('rtmp').dispose();
+			
 			//Clear out the video content.
 			$video.html('');
 			
 			//Stop the audio player.
 			$audio.find('audio')[0].pause();
 			$audio.find('audio')[0].currentTime	=	0;
-			
-			//Dispose of the player.
-			if (player) videojs(player).dispose();
 			
 			//Based on the parent class.
 			if ($stream.parent().hasClass('video')) { 
