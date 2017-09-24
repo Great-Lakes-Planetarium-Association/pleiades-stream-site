@@ -21,7 +21,7 @@
 			$streams.find('.load-stream').removeClass('disabled').attr('href', '').parent().stop().hide();
 			
 			//Declare the default video value to be stored based upon what video is available below. 
-			var	$defaultVideo	=	null;
+			var	$defaultVideo;
 			
 			/*
 			 * Based upon what data is available, show the appropriate button and set the stream data. 
@@ -76,6 +76,9 @@
 			$audio.find('audio')[0].pause();
 			$audio.find('audio')[0].currentTime	=	0;
 			
+			//Dispose of the player.
+			videojs(player).dispose();
+			
 			//Based on the parent class.
 			if ($stream.parent().hasClass('video')) { 
 				//Add the html.
@@ -84,7 +87,7 @@
 				'</video>').stop().show();
 				
 				//Activate the player.
-				videojs('hls', {}, function() {
+				player	=	videojs('hls', {}, function() {
 					$('.video-js').css({
 						'width': $('.responsive-embed.widescreen').width(),
 						'height': $('.responsive-embed.widescreen').outerHeight()
@@ -105,7 +108,7 @@
 				'</video>').stop().show();
 				
 				//Activate the player.
-				videojs('rtmp', {techOrder: ['flash']}, function() {
+				player	=	videojs('rtmp', {techOrder: ['flash']}, function() {
 					$('.video-js').css({
 						'width': $('.responsive-embed.widescreen').width(),
 						'height': $('.responsive-embed.widescreen').outerHeight()
@@ -122,6 +125,7 @@
 	};
 	
 	//Get all applicable elements.
+	var	player;
 	var	$video		=	$('#video');
 	var	$audio		=	$('#audio');
 	var	$events		=	$('.ongoing-events');
