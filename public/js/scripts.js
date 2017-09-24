@@ -57603,7 +57603,7 @@ module.exports = {
 			$audio.find('audio')[0].currentTime	=	0;
 			
 			//Dispose of the player.
-			videojs(player).dispose();
+			if (player) videojs(player).dispose();
 			
 			//Based on the parent class.
 			if ($stream.parent().hasClass('video')) { 
