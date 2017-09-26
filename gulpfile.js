@@ -82,7 +82,7 @@ gulp.task('copy-fonts', function() {
 });
 
 //Copy JS.
-gulp.task('copy-js', function() {
+gulp.task('copy-js', ['copy-swf'], function() {
 	//Run Gulp.
 	return gulp.src([
 		'./node_modules/jquery/dist/jquery.js', 
@@ -104,6 +104,15 @@ gulp.task('copy-images', function() {
 		'./node_modules/sobar/images/*.svg'
 	])
 		.pipe(gulp.dest('./src/images'));
+});
+
+//Copy flash.
+gulp.task('copy-swf', function() {
+	//Run Gulp.
+	return gulp.src([
+		'./node_modules/video.js/dist/video-js.swf'
+	])
+		.pipe(gulp.dest('./public/swf'));
 });
 
 //Replace CSS.

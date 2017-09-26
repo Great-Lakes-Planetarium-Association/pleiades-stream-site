@@ -129,37 +129,38 @@
 							<li>
 								<h3>Ongoing Events:</h3>
 							<?php
-								//Get all the stream types.
-								$streams	=	_vc($state, 'data', 'streams');
+								//If there are concurrent streams.
+								if (isset($cStreams) && count($cStreams) > 0) {
+									//For each concurrent stream.
+									foreach($cStreams as $i => $cStream) {
+										//Get the current stream.
+										$thisStream		=	(!isset($streams[_vc($cStream, 'stream')])) ? null :
+											$streams[_vc($cStream, 'stream')];
 
-								foreach($cStreams as $i => $cStream) {
-									//Get the current stream.
-									$thisStream		=	(!isset($streams[_vc($cStream, 'stream')])) ? null :
-										$streams[_vc($cStream, 'stream')];
-
-									//If there is a stream.
-									if ($thisStream) {
-										//Get the streams.
-										$streamHls		=	sprintf("%s%s",
-												_vc($state, 'data', 'stream_url_prefixes', 'hls'),
-												_vc($thisStream, 'hls', 'url')
-										);
-										$streamRtmp		=	sprintf("%s%s",
-												_vc($state, 'data', 'stream_url_prefixes', 'rtmp'),
-												_vc($thisStream, 'rtmp', 'url')
-										);
-										$streamYoutube	=	sprintf("%s%s",
-												_vc($state, 'data', 'stream_url_prefixes', 'youtube'),
-												_vc($thisStream, 'youtube', 'url')
-										);
-										$streamUstream	=	sprintf("%s%s",
-												_vc($state, 'data', 'stream_url_prefixes', 'ustream'),
-												_vc($thisStream, 'ustream', 'url')
-										);
-										$streamAudio	=	sprintf("%s%s",
-												_vc($state, 'data', 'stream_url_prefixes', 'audio'),
-												_vc($thisStream, 'audio', 'url')
-										);
+										//If there is a stream.
+										if ($thisStream) {
+											//Get the streams.
+											$streamHls		=	sprintf("%s%s",
+													_vc($state, 'data', 'stream_url_prefixes', 'hls'),
+													_vc($thisStream, 'hls', 'url')
+											);
+											$streamRtmp		=	sprintf("%s%s",
+													_vc($state, 'data', 'stream_url_prefixes', 'rtmp'),
+													_vc($thisStream, 'rtmp', 'url')
+											);
+											$streamYoutube	=	sprintf("%s%s",
+													_vc($state, 'data', 'stream_url_prefixes', 'youtube'),
+													_vc($thisStream, 'youtube', 'url')
+											);
+											$streamUstream	=	sprintf("%s%s",
+													_vc($state, 'data', 'stream_url_prefixes', 'ustream'),
+													_vc($thisStream, 'ustream', 'url')
+											);
+											$streamAudio	=	sprintf("%s%s",
+													_vc($state, 'data', 'stream_url_prefixes', 'audio'),
+													_vc($thisStream, 'audio', 'url')
+											);
+										}
 									}
 								?>
 								<li>
@@ -179,17 +180,19 @@
 					<div class="media<?php if (!isset($nowStream)) { ?> hide<?php } ?>">
 						<div id="video" class="responsive-embed widescreen"
 							data-poster="<?php print(_vc($state, 'data', 'background')); ?>">
-							<iframe width="640" height="360" frameborder="0" src="<?php print($streamYoutube); ?>"></iframe>
+							<iframe width="640" height="360" frameborder="0"
+								src="<?php if (isset($streamYoutube)) print($streamYoutube); ?>"></iframe>
 						</div>
 						<div id="audio">
-						<?php if ($streamAudio) { ?>
+						<?php if (isset($streamAudio) && $streamAudio) { ?>
 							<div class="row">
 								<div class="column float-left medium-2">
 									<h3>Audio Player</h3>
 								</div>
 								<div class="column small-12 medium-10">
 									<audio controls>
-										<source type="audio/mpeg" src="<?php print($streamAudio); ?>" />
+										<source type="audio/mpeg"
+											src="<?php if (isset($streamAudio)) print($streamAudio); ?>" />
 									</audio>
 								</div>
 							</div>

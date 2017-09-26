@@ -11,49 +11,52 @@
 			//Set the event if no event is set.
 			$event	=	(!$event) ? $events.find('.load-event').first() : $event;
 			
-			//Find any disabled event buttons and enable them.
-			$events.find('.disabled').removeClass('disabled');
-			
-			//Set the clicked event as disabled.
-			$event.addClass('disabled'); 
-			
-			//Reset the stream buttons and hide them. 
-			$streams.find('.load-stream').removeClass('disabled').attr('href', '').parent().stop().hide();
-			
-			//Declare the default video value to be stored based upon what video is available below. 
-			var	$defaultVideo;
-			
-			/*
-			 * Based upon what data is available, show the appropriate button and set the stream data. 
-			 */
-			
-			if ($event.data('audio')) {
-				$defaultVideo	=	$streams.find('.audio').find('.load-stream');
-				$defaultVideo.attr('href', $event.data('audio')).parent().stop().show();
+			//If there is an event.
+			if ($event) { 
+				//Find any disabled event buttons and enable them.
+				$events.find('.disabled').removeClass('disabled');
+				
+				//Set the clicked event as disabled.
+				$event.addClass('disabled'); 
+				
+				//Reset the stream buttons and hide them. 
+				$streams.find('.load-stream').removeClass('disabled').attr('href', '').parent().stop().hide();
+				
+				//Declare the default video value to be stored based upon what video is available below. 
+				var	$defaultVideo;
+				
+				/*
+				 * Based upon what data is available, show the appropriate button and set the stream data. 
+				 */
+				
+				if ($event.data('audio')) {
+					$defaultVideo	=	$streams.find('.audio').find('.load-stream');
+					$defaultVideo.attr('href', $event.data('audio')).parent().stop().show();
+				}
+				
+				if ($event.data('rtmp')) {
+					$defaultVideo	=	$streams.find('.flash').find('.load-stream');
+					$defaultVideo.attr('href', $event.data('rtmp')).parent().stop().show();
+				}
+				
+				if ($event.data('ustream')) {
+					$defaultVideo	=	$streams.find('.ustream').find('.load-stream');
+					$defaultVideo.attr('href', $event.data('ustream')).parent().stop().show();
+				}
+				
+				if ($event.data('youtube')) {
+					$defaultVideo	=	$streams.find('.youtube').find('.load-stream');
+					$defaultVideo.attr('href', $event.data('youtube')).parent().stop().show();
+				}
+				
+				if ($event.data('hls')) {
+					$defaultVideo	=	$streams.find('.video').find('.load-stream');
+					$defaultVideo.attr('href', $event.data('hls')).parent().stop().show();
+				}
+				
+				//Set the default player. 
+				mediaUtilities.setPlayer($defaultVideo); 
 			}
-			
-			if ($event.data('rtmp')) {
-				$defaultVideo	=	$streams.find('.flash').find('.load-stream');
-				$defaultVideo.attr('href', $event.data('rtmp')).parent().stop().show();
-			}
-			
-			if ($event.data('ustream')) {
-				$defaultVideo	=	$streams.find('.ustream').find('.load-stream');
-				$defaultVideo.attr('href', $event.data('ustream')).parent().stop().show();
-			}
-			
-			if ($event.data('youtube')) {
-				$defaultVideo	=	$streams.find('.youtube').find('.load-stream');
-				$defaultVideo.attr('href', $event.data('youtube')).parent().stop().show();
-			}
-			
-			if ($event.data('hls')) {
-				$defaultVideo	=	$streams.find('.video').find('.load-stream');
-				$defaultVideo.attr('href', $event.data('hls')).parent().stop().show();
-			}
-			
-			//Set the default player. 
-			mediaUtilities.setPlayer($defaultVideo); 
 		}, 
 		/**
 		 * Replaces the player given a choice. 
@@ -62,65 +65,71 @@
 			//Remove the disabled flag on each stream button.
 			$streams.find('.load-stream').removeClass('disabled');
 			
-			//Set this stream as disabled.
-			$stream.addClass('disabled');
-			
-			//Hide all applicable elements.
-			$video.stop().hide();
-			$audio.stop().hide();
-			
-			//Dispose of the player.
-			if ($('#hls').length) videojs('hls').dispose();
-			if ($('#rtmp').length) videojs('rtmp').dispose();
-			
-			//Clear out the video content.
-			$video.html('');
-			
-			//Stop the audio player.
-			$audio.find('audio')[0].pause();
-			$audio.find('audio')[0].currentTime	=	0;
-			
-			//Based on the parent class.
-			if ($stream.parent().hasClass('video')) { 
-				//Add the html.
-				$video.html('<video id="hls" class="video-js" controls poster="' + $video.data('poster') + '">' + 
-						'<source src="' + $stream.attr('href') + '" type="application/x-mpegURL" />' + 
-				'</video>').stop().show();
+			//If there is a stream.
+			if ($stream) {
+				//Set this stream as disabled.
+				$stream.addClass('disabled');
 				
-				//Activate the player.
-				player	=	videojs('hls', {}, function() {
-					$('.video-js').css({
-						'width': $('.responsive-embed.widescreen').width(),
-						'height': $('.responsive-embed.widescreen').outerHeight()
-					});
-				}); 
-			} else if ($stream.parent().hasClass('youtube')) {
-				//Add the html.
-				$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
-					.stop().show();
-			} else if ($stream.parent().hasClass('ustream')) {
-				//Add the html.
-				$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
-					.stop().show();
-			} else if ($stream.parent().hasClass('rtmp')) {
-				//Add the html.
-				$video.html('<video id="rtmp" class="video-js" controls poster="' + $video.data('poster') + '">' + 
-						'<source src="' + $stream.attr('href') + '" type="rtmp/mp4" />' + 
-				'</video>').stop().show();
-				
-				//Activate the player.
-				player	=	videojs('rtmp', {techOrder: ['flash']}, function() {
-					$('.video-js').css({
-						'width': $('.responsive-embed.widescreen').width(),
-						'height': $('.responsive-embed.widescreen').outerHeight()
-					});
-				}); 
-			} else if ($stream.parent().hasClass('audio')) {
-				//Hide the video player.
+				//Hide all applicable elements.
 				$video.stop().hide();
+				$audio.stop().hide();
 				
-				//Show the audio player.
-				$audio.stop().show(); 
+				//Dispose of the player.
+				if ($('#hls').length) videojs('hls').dispose();
+				if ($('#rtmp').length) videojs('rtmp').dispose();
+				
+				//Clear out the video content.
+				$video.html('');
+				
+				//Stop the audio player.
+				$audio.find('audio')[0].pause();
+				$audio.find('audio')[0].currentTime	=	0;
+				
+				//Based on the parent class.
+				if ($stream.parent().hasClass('video')) { 
+					//Add the html.
+					$video.html('<video id="hls" class="video-js" controls poster="' + $video.data('poster') + '">' + 
+							'<source src="' + $stream.attr('href') + '" type="application/x-mpegURL" />' + 
+					'</video>').stop().show();
+					
+					//Activate the player.
+					player	=	videojs('hls', {}, function() {
+						$('.video-js').css({
+							'width': $('.responsive-embed.widescreen').width(),
+							'height': $('.responsive-embed.widescreen').outerHeight()
+						});
+					}); 
+				} else if ($stream.parent().hasClass('youtube')) {
+					//Add the html.
+					$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
+						.stop().show();
+				} else if ($stream.parent().hasClass('ustream')) {
+					//Add the html.
+					$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
+						.stop().show();
+				} else if ($stream.parent().hasClass('rtmp')) {
+					//Add the html.
+					$video.html('<video id="rtmp" class="video-js" controls poster="' + $video.data('poster') + '">' + 
+							'<source src="' + $stream.attr('href') + '" type="rtmp/mp4" />' + 
+					'</video>').stop().show();
+					
+					//Activate the player.
+					player	=	videojs('rtmp', {
+						techOrder: ['flash'], 
+						flash: {swf: $('html').data('path') +'/swf/video-js.swf' }
+					}, function() {
+						$('.video-js').css({
+							'width': $('.responsive-embed.widescreen').width(),
+							'height': $('.responsive-embed.widescreen').outerHeight()
+						});
+					}); 
+				} else if ($stream.parent().hasClass('audio')) {
+					//Hide the video player.
+					$video.stop().hide();
+					
+					//Show the audio player.
+					$audio.stop().show(); 
+				}
 			}
 		}
 	};
