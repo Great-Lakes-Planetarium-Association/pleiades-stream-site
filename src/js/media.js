@@ -93,7 +93,9 @@
 					'</video>').stop().show();
 					
 					//Activate the player.
-					player	=	videojs('hls', {}, function() {
+					player	=	videojs('hls', {
+						flash: {swf: $('html').data('path') +'/swf/video-js.swf'}
+					}, function() {
 						$('.video-js').css({
 							'width': $('.responsive-embed.widescreen').width(),
 							'height': $('.responsive-embed.widescreen').outerHeight()
@@ -107,7 +109,7 @@
 					//Add the html.
 					$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
 						.stop().show();
-				} else if ($stream.parent().hasClass('rtmp')) {
+				} else if ($stream.parent().hasClass('flash')) {
 					//Add the html.
 					$video.html('<video id="rtmp" class="video-js" controls poster="' + $video.data('poster') + '">' + 
 							'<source src="' + $stream.attr('href') + '" type="rtmp/mp4" />' + 
@@ -115,8 +117,7 @@
 					
 					//Activate the player.
 					player	=	videojs('rtmp', {
-						techOrder: ['flash'], 
-						flash: {swf: $('html').data('path') +'/swf/video-js.swf' }
+						flash: {swf: $('html').data('path') +'/swf/video-js.swf'}
 					}, function() {
 						$('.video-js').css({
 							'width': $('.responsive-embed.widescreen').width(),
