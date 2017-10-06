@@ -121,7 +121,7 @@
 					currentStream	=	'hls';
 					
 					//Add the html.
-					$video.html('<video id="hls" class="video-js" controls poster="' + $video.data('poster') + '">' + 
+					$video.html('<video id="hls" class="video-js" controls autoplay poster="' + $video.data('poster') + '">' + 
 							'<source src="' + $stream.attr('href') + '" type="application/x-mpegURL" />' + 
 					'</video>').stop().show();
 					
@@ -153,7 +153,7 @@
 					currentStream	=	'flash';
 					
 					//Add the html.
-					$video.html('<video id="rtmp" class="video-js" controls poster="' + $video.data('poster') + '">' + 
+					$video.html('<video id="rtmp" class="video-js" controls autoplay poster="' + $video.data('poster') + '">' + 
 							'<source src="' + $stream.attr('href') + '" type="rtmp/mp4" />' + 
 					'</video>').stop().show();
 					
