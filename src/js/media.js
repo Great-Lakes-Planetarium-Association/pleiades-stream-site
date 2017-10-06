@@ -2,6 +2,9 @@
  * Run when the page is ready. 
  */
 (function($) {
+	//Declare the current stream.
+	var	currentStream	=	'hls';
+	
 	//Create a set of re-usable utilities. 
 	var	mediaUtilities	=	{
 		/**
@@ -23,35 +26,65 @@
 				$streams.find('.load-stream').removeClass('disabled').attr('href', '').parent().stop().hide();
 				
 				//Declare the default video value to be stored based upon what video is available below. 
-				var	$defaultVideo;
+				var	$currentVideo, $defaultVideo;
 				
 				/*
 				 * Based upon what data is available, show the appropriate button and set the stream data. 
 				 */
 				
 				if ($event.data('audio')) {
-					$defaultVideo	=	$streams.find('.audio').find('.load-stream');
-					$defaultVideo.attr('href', $event.data('audio')).parent().stop().show();
+					$currentVideo	=	$streams.find('.audio').find('.load-stream');
+					$currentVideo.attr('href', $event.data('audio')).parent().stop().show();
+					
+					//If the current stream matches.
+					if (currentStream == 'audio') {
+						//Set the default video. 
+						$defaultVideo	=	$currentVideo;
+					}
 				}
 				
 				if ($event.data('rtmp')) {
-					$defaultVideo	=	$streams.find('.flash').find('.load-stream');
-					$defaultVideo.attr('href', $event.data('rtmp')).parent().stop().show();
+					$currentVideo	=	$streams.find('.flash').find('.load-stream');
+					$currentVideo.attr('href', $event.data('rtmp')).parent().stop().show();
+					
+					//If the current stream matches.
+					if (currentStream == 'flash') {
+						//Set the default video. 
+						$defaultVideo	=	$currentVideo;
+					}
 				}
 				
 				if ($event.data('ustream')) {
-					$defaultVideo	=	$streams.find('.ustream').find('.load-stream');
-					$defaultVideo.attr('href', $event.data('ustream')).parent().stop().show();
+					$currentVideo	=	$streams.find('.ustream').find('.load-stream');
+					$currentVideo.attr('href', $event.data('ustream')).parent().stop().show();
+					
+					//If the current stream matches.
+					if (currentStream == 'ustream') {
+						//Set the default video. 
+						$defaultVideo	=	$currentVideo;
+					}
 				}
 				
 				if ($event.data('youtube')) {
-					$defaultVideo	=	$streams.find('.youtube').find('.load-stream');
-					$defaultVideo.attr('href', $event.data('youtube')).parent().stop().show();
+					$currentVideo	=	$streams.find('.youtube').find('.load-stream');
+					$currentVideo.attr('href', $event.data('youtube')).parent().stop().show();
+					
+					//If the current stream matches.
+					if (currentStream == 'youtube') {
+						//Set the default video. 
+						$defaultVideo	=	$currentVideo;
+					}
 				}
 				
 				if ($event.data('hls')) {
-					$defaultVideo	=	$streams.find('.video').find('.load-stream');
-					$defaultVideo.attr('href', $event.data('hls')).parent().stop().show();
+					$currentVideo	=	$streams.find('.video').find('.load-stream');
+					$currentVideo.attr('href', $event.data('hls')).parent().stop().show();
+					
+					//If the current stream matches.
+					if (!currentStream || !$defaultVideo || currentStream == 'hls') {
+						//Set the default video. 
+						$defaultVideo	=	$currentVideo;
+					}
 				}
 				
 				//Set the default player. 
@@ -84,6 +117,9 @@
 				
 				//Based on the parent class.
 				if ($stream.parent().hasClass('video')) { 
+					//Set the current stream.
+					currentStream	=	'hls';
+					
 					//Add the html.
 					$video.html('<video id="hls" class="video-js" controls poster="' + $video.data('poster') + '">' + 
 							'<source src="' + $stream.attr('href') + '" type="application/x-mpegURL" />' + 
@@ -99,14 +135,23 @@
 						});
 					}); 
 				} else if ($stream.parent().hasClass('youtube')) {
+					//Set the current stream.
+					currentStream	=	'youtube';
+					
 					//Add the html.
 					$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
 						.stop().show();
 				} else if ($stream.parent().hasClass('ustream')) {
+					//Set the current stream.
+					currentStream	=	'ustream';
+					
 					//Add the html.
 					$video.html('<iframe width="640" height="360" frameborder="0" src="' + $stream.attr('href') + '"></iframe>')
 						.stop().show();
 				} else if ($stream.parent().hasClass('flash')) {
+					//Set the current stream.
+					currentStream	=	'flash';
+					
 					//Add the html.
 					$video.html('<video id="rtmp" class="video-js" controls poster="' + $video.data('poster') + '">' + 
 							'<source src="' + $stream.attr('href') + '" type="rtmp/mp4" />' + 
@@ -122,6 +167,9 @@
 						});
 					}); 
 				} else if ($stream.parent().hasClass('audio')) {
+					//Set the current stream.
+					currentStream	=	'audio';
+					
 					//Hide the video player.
 					$video.stop().hide();
 					

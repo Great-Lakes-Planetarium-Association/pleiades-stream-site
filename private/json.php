@@ -139,7 +139,7 @@
 						$childs	=	_vc($event, 'children');
 
 						//If there are children.
-						if (count($childs) > 0) {
+						if (is_array($childs) && count($childs) > 0) {
 							//For each child.
 							foreach($childs as $m => $child) {
 								//Get the two timestamps.

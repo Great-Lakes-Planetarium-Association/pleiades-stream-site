@@ -109,6 +109,7 @@ h3 {
 			&.no-concurrent {
 				color: darken($white, 15%); 
 				background-color: darken($body-background, 5%); 
+				font-size: rem-calc(14); 
 			}
 		}
 		
