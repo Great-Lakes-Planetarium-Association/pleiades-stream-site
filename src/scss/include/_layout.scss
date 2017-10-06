@@ -2,6 +2,7 @@ body {
 	background-position: center; 
 	background-repeat: no-repeat;
 	background-size: cover;
+	font-family: $body-font-family;
 	
 	> * {
 		.row {
@@ -9,6 +10,10 @@ body {
 			background-color: darken($primary-color, 12.5%); 
 		}
 	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $body-font-family; 
 }
 
 .logo {
@@ -46,19 +51,19 @@ nav {
 }
 
 h1 {
-	font-size: rem-calc(34);
+	font-size: rem-calc(32);
 	
 	@include breakpoint(medium up) {
-		font-size: rem-calc(40); 
+		font-size: rem-calc(38); 
 	} 
 }
 
 h2 {
-	font-size: rem-calc(24); 
+	font-size: rem-calc(22); 
 }
 
 h3 {
-	font-size: rem-calc(18);
+	font-size: rem-calc(16);
 }
 
 #chat {
@@ -107,9 +112,8 @@ h3 {
 			background-color: $body-background;
 			
 			&.no-concurrent {
-				color: darken($white, 15%); 
+				color: darken($white, 20%); 
 				background-color: darken($body-background, 5%); 
-				font-size: rem-calc(14); 
 			}
 		}
 		
@@ -124,6 +128,10 @@ h3 {
 			font-style: italic; 
 		}
 	}
+}
+
+.asterisk {
+	color: darken($white, 10%); 
 }
 
 footer {

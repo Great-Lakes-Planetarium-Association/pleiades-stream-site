@@ -20,6 +20,7 @@ $black: #000;
 $white: #CFCFCF;
 $body-background: #01142b;
 $body-font-color: $white;
+$body-font-family: 'Open Sans', 'Roboto', sans-serif, serif;
 $button-background: $primary-color; 
 $tab-background: $body-background; 
 $tab-background-active: $primary-color; 
@@ -34,4 +35,6 @@ $table-background: darken($dark-gray, 25%);
 $table-striped-background: darken($table-background, 5%);
 $table-head-background: $table-striped-background;
 $table-border: 1px solid $table-background;
-$table-head-font-color: $white; 
+$table-head-font-color: $white;
+
+$FontPathOpenSans: '../fonts'; 

@@ -81,7 +81,9 @@
 														<?php printf("%s - %s", date('h:i A', $tsSrt),
 																date('h:i A', $tsEnd)); ?>
 													</td>
-													<td><?php print(_vc($event, 'title')); ?></th>
+													<td>
+														<?php print(_vc($event, 'title')); if (!$streams) { ?>*<?php } ?>
+													</th>
 												</tr>
 								<?php
 											}
@@ -128,6 +130,9 @@
 								?>
 											</tbody>
 										</table>
+										<div class="text-right">
+											<small class="asterisk">* Events with asterisks will not be streamed.</small>
+										</div>
 									</div>
 								</div>
 							<?php } ?>

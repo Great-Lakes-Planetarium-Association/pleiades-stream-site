@@ -77,6 +77,7 @@ gulp.task('copy-css', function() {
 gulp.task('copy-fonts', function() {
 	//Run Gulp.
 	return gulp.src([
+		'./node_modules/npm-font-open-sans/fonts/**/*'
 	])
 		.pipe(gulp.dest('./public/fonts'));
 });
@@ -136,7 +137,11 @@ gulp.task('sass', function() {
 		.pipe(sass({
 			sourcemap: true, 
 			outputStyle: 'expanded',
-			includePaths: ['./node_modules/foundation-sites/scss', './node_modules/video.js/src/css']
+			includePaths: [
+				'./node_modules/foundation-sites/scss', 
+				'./node_modules/video.js/src/css', 
+				'./node_modules/npm-font-open-sans'
+			]
 		}))
 		.on('error', notify.onError(function(error) {
 			//Set die as true.
