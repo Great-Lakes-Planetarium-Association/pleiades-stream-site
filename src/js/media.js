@@ -178,7 +178,10 @@
 						.html('<audio controls><source src="' + $stream.attr('href') + '" type="audio/mpeg" /></audio>');
 					
 					//Show the audio player.
-					$audio.stop().show(); 
+					$audio.stop().show(function() {
+						//Force autoplay. 
+						$audio.find('audio')[0].play();  
+					}); 
 				}
 			}
 		}
