@@ -143,25 +143,30 @@
 										//If there is a stream.
 										if ($thisStream) {
 											//Get the streams.
-											$streamHls		=	sprintf("%s%s",
+											$streamHls		=	(!_vc($thisStream, 'hls', 'enabled')) ? null :
+												sprintf("%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'hls'),
 													_vc($thisStream, 'hls', 'url')
 											);
-											$streamRtmp		=	sprintf("%s%s",
+											$streamRtmp		=	(!_vc($thisStream, 'rtmp', 'enabled')) ? null :
+												sprintf("%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'rtmp'),
 													_vc($thisStream, 'rtmp', 'url')
 											);
-											$streamYoutube	=	sprintf("%s%s%s",
+											$streamYoutube	=	(!_vc($thisStream, 'youtube', 'enabled')) ? null :
+												sprintf("%s%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'youtube'),
 													_vc($thisStream, 'youtube', 'url'),
 													_vc($state, 'data', 'stream_url_suffixes', 'youtube')
 											);
-											$streamUstream	=	sprintf("%s%s%s",
+											$streamUstream	=	(!_vc($thisStream, 'ustream', 'enabled')) ? null :
+												sprintf("%s%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'ustream'),
 													_vc($thisStream, 'ustream', 'url'),
 													_vc($state, 'data', 'stream_url_suffixes', 'ustream')
 											);
-											$streamAudio	=	sprintf("%s%s",
+											$streamAudio	=	(!_vc($thisStream, 'audio', 'enabled')) ? null :
+												sprintf("%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'audio'),
 													_vc($thisStream, 'audio', 'url')
 											);
