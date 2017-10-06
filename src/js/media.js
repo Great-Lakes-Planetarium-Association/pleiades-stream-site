@@ -128,6 +128,9 @@
 					//Hide the video player.
 					$video.stop().hide();
 					
+					//Modify the source. 
+					$audio.find('source').attr('src', $stream.attr('href'));
+					
 					//Show the audio player.
 					$audio.stop().show(); 
 				}

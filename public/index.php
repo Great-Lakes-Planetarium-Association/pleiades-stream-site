@@ -151,18 +151,24 @@
 													_vc($state, 'data', 'stream_url_prefixes', 'rtmp'),
 													_vc($thisStream, 'rtmp', 'url')
 											);
-											$streamYoutube	=	sprintf("%s%s",
+											$streamYoutube	=	sprintf("%s%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'youtube'),
-													_vc($thisStream, 'youtube', 'url')
+													_vc($thisStream, 'youtube', 'url'),
+													_vc($state, 'data', 'stream_url_suffixes', 'youtube')
 											);
-											$streamUstream	=	sprintf("%s%s",
+											$streamUstream	=	sprintf("%s%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'ustream'),
-													_vc($thisStream, 'ustream', 'url')
+													_vc($thisStream, 'ustream', 'url'),
+													_vc($state, 'data', 'stream_url_suffixes', 'ustream')
 											);
 											$streamAudio	=	sprintf("%s%s",
 													_vc($state, 'data', 'stream_url_prefixes', 'audio'),
 													_vc($thisStream, 'audio', 'url')
 											);
+
+											//If this is the first.
+											$defaultVideo	=	(!isset($defaultVideo)) ? $streamYoutube : $defaultVideo;
+											$defaultAudio	=	(!isset($defaultAudio)) ? $streamAudio : $defaultAudio;
 										}
 								?>
 								<li>
@@ -186,7 +192,7 @@
 						<div id="video" class="responsive-embed widescreen"
 							data-poster="<?php print(_vc($state, 'data', 'background')); ?>">
 							<iframe width="640" height="360" frameborder="0"
-								src="<?php if (isset($streamYoutube)) print($streamYoutube); ?>"></iframe>
+								src="<?php if (isset($defaultVideo)) print($defaultVideo); ?>"></iframe>
 						</div>
 						<div id="audio">
 						<?php if (isset($streamAudio) && $streamAudio) { ?>
@@ -197,7 +203,7 @@
 								<div class="column small-12 medium-10">
 									<audio controls>
 										<source type="audio/mpeg"
-											src="<?php if (isset($streamAudio)) print($streamAudio); ?>" />
+											src="<?php if (isset($defaultAudio)) print($defaultAudio); ?>" />
 									</audio>
 								</div>
 							</div>
