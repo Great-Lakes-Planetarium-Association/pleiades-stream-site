@@ -107,6 +107,11 @@ h3 {
 		margin: 0; 
 		width: 100.00%;
 		
+		.highlight {
+			background-color: $tab-background-active;
+			font-style: italic; 
+		}
+		
 		.main-event {
 			font-weight: bold;
 			background-color: $body-background;
@@ -114,6 +119,10 @@ h3 {
 			&.no-concurrent {
 				color: darken($white, 20%); 
 				background-color: darken($body-background, 5%); 
+				
+				&.highlight {
+					background-color: darken($tab-background-active, 10%); 
+				}
 			}
 		}
 		
@@ -121,11 +130,6 @@ h3 {
 			.concurrent {
 				vertical-align: top; 
 			}
-		}
-		
-		.highlight {
-			background-color: $tab-background-active;
-			font-style: italic; 
 		}
 	}
 }
