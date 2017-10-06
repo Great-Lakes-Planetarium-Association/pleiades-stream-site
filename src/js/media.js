@@ -80,10 +80,7 @@
 				
 				//Clear out the video content.
 				$video.html('');
-				
-				//Stop the audio player.
-				$audio.find('audio')[0].pause();
-				$audio.find('audio')[0].currentTime	=	0;
+				$audio.find('.player').html(''); 
 				
 				//Based on the parent class.
 				if ($stream.parent().hasClass('video')) { 
@@ -128,8 +125,9 @@
 					//Hide the video player.
 					$video.stop().hide();
 					
-					//Modify the source. 
-					$audio.find('source').attr('src', $stream.attr('href'));
+					//Add the html.
+					$audio.find('.player')
+						.html('<audio controls><source src="' + $stream.attr('href') + '" type="audio/mpeg" /></audio>');
 					
 					//Show the audio player.
 					$audio.stop().show(); 

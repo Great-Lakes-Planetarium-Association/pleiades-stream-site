@@ -200,7 +200,7 @@
 								<div class="column float-left medium-2">
 									<h3>Audio Player</h3>
 								</div>
-								<div class="column small-12 medium-10">
+								<div class="column small-12 medium-10 player">
 									<audio controls>
 										<source type="audio/mpeg"
 											src="<?php if (isset($defaultAudio)) print($defaultAudio); ?>" />
