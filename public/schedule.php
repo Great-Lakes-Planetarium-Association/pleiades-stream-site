@@ -115,9 +115,11 @@
 													<td>
 														<?php print(_vc($cStream, 'title')); ?>
 														<br />
+													<?php if (_vc($cStream, 'presenter')) { ?>
 														<small>
 															Presented by: <?php print(_vc($cStream, 'presenter')); ?>
 														</small>
+													<?php } ?>
 													</td>
 												</tr>
 								<?php
