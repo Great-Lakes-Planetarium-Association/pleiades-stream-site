@@ -131,6 +131,9 @@
 							<?php
 								//If there are concurrent streams.
 								if (isset($cStreams) && count($cStreams) > 0) {
+									//Get the stream types.
+									$streams	=	_vc($state, 'data', 'streams');
+
 									//For each concurrent stream.
 									foreach($cStreams as $i => $cStream) {
 										//Get the current stream.
@@ -161,7 +164,6 @@
 													_vc($thisStream, 'audio', 'url')
 											);
 										}
-									}
 								?>
 								<li>
 									<a href="#video" class="button load-event<?php if ($i == 0) { ?> current<?php } ?>"
@@ -173,7 +175,10 @@
 										<?php print(_vc($cStream, 'title')); ?>
 									</a>
 								</li>
-							<?php } ?>
+							<?php
+									}
+								}
+							?>
 							</li>
 						</ul>
 					</nav>
