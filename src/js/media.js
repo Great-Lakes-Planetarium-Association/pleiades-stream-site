@@ -87,8 +87,19 @@
 					}
 				}
 				
-				//Set the default player. 
-				mediaUtilities.setPlayer($defaultVideo); 
+				console.log($defaultVideo); 
+				
+				//If there is no default video.
+				if (!$defaultVideo) {
+					//Hide the ongoing streams. 
+					$('.ongoing-streams').hide();
+				} else {
+					//Hide the ongoing streams. 
+					$('.ongoing-streams').show();
+					
+					//Set the default player. 
+					mediaUtilities.setPlayer($defaultVideo); 
+				}
 			}
 		}, 
 		/**
