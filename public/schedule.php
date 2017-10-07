@@ -83,7 +83,7 @@
 													</td>
 													<td>
 														<?php print(_vc($event, 'title')); if (!$streams) { ?>*<?php } ?>
-													</th>
+													</td>
 												</tr>
 								<?php
 											}
