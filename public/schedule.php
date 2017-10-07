@@ -39,6 +39,9 @@
 									?>
 								</span>
 							</p>
+							<div class="text-right">
+								<small class="asterisk">* Events with asterisks will not be streamed.</small>
+							</div>
 							<div class="tabs-content" data-tabs-content="schedule-content">
 							<?php foreach($eventDays as $k => $day) { ?>
 								<div class="tabs-panel<?php if ($k === $active['day']) { ?> is-active<?php } ?>"
@@ -132,9 +135,6 @@
 								?>
 											</tbody>
 										</table>
-										<div class="text-right">
-											<small class="asterisk">* Events with asterisks will not be streamed.</small>
-										</div>
 									</div>
 								</div>
 							<?php } ?>

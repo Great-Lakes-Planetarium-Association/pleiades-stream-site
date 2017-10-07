@@ -90,6 +90,8 @@ h3 {
 
 .tabs-content {
 	border: 1px solid $tab-background-active;
+	max-height: rem-calc(400);
+	overflow: auto; 
 	
 	@include breakpoint(small down) {
 		margin-top: $global-margin; 
