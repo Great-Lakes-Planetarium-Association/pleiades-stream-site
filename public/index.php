@@ -111,7 +111,7 @@
 					<div class="stream-title" data-refresh="<?php print($endTime); ?>">
 					<?php if ($title) { ?>
 						<h2>
-							Currently showing:
+							Presenting:
 							<?php print($title); ?>
 						</h2>
 					<?php } ?>
