@@ -45,9 +45,22 @@
 			$state	=	json_decode(file_get_contents($filename));
 		}
 
+		//Based on the override url.
+		if (!isset($_GET['override'])) {
+			//Set the resource url.
+			$resourceUrl	=	"https://live.pleiades2017.org/conference.json";
+		} else {
+			//If there is a state expires.
+			if (_vc($state, 'expires')) {
+				$state -> expires	=	0;
+			}
+
+			//Set the resource url.
+			$resourceUrl	=	"https://live.pleiades2017.org/conference-override.json";
+		}
+
 		//If the cache should be updated.
-		if (!file_exists($filename) || !is_readable($filename)
-				|| !_vc($state, 'expires') || !_vc($state, 'expires') || time() > $state -> expires) {
+		if (!file_exists($filename) || !is_readable($filename) || time() > _vc($state, 'expires')) {
 			//Delete the file if it exists.
 			if (file_exists($filename)) unlink($filename);
 
@@ -55,7 +68,7 @@
 			$ch	=	curl_init();
 
 			//Set cURL options.
-			curl_setopt($ch, CURLOPT_URL, "https://live.pleiades2017.org/conference.json");
+			curl_setopt($ch, CURLOPT_URL, $resourceUrl);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -84,7 +97,7 @@
 				$state -> data		=	json_decode($r);
 
 				//Save the data for later.
-				file_put_contents($filename, json_encode($state), LOCK_EX);
+				if (!isset($_GET['override'])) file_put_contents($filename, json_encode($state), LOCK_EX);
 			}
 		}
 	}
