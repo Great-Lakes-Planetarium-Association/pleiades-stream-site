@@ -111,7 +111,7 @@
 					<div class="stream-title" data-refresh="<?php print($endTime); ?>">
 					<?php if ($title) { ?>
 						<h2>
-							Presenting:
+							<?php print((time() > $startTime && time() < $endTime) ? 'Presenting' : 'Next'); ?>:
 							<?php print($title); ?>
 						</h2>
 					<?php } ?>
