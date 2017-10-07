@@ -5,9 +5,12 @@
 
 	//Import all of the relevant content data.
 	include(__DIR__ . '/../private/json.php');
+
+	//Parse the URL.
+	$parsedUrl	=	parse_url($_SERVER['REQUEST_URI']);
 ?>
 <!DOCTYPE html>
-<html lang="en" data-path="<?php print(rtrim($_SERVER['REQUEST_URI'], '/')); ?>">
+<html lang="en" data-path="<?php print(rtrim($parsedUrl['path'], '/')); ?>">
 	<head>
 		<title>
 			Watch Live at the <?php print(_vc($state, 'data', 'host')); ?> in
