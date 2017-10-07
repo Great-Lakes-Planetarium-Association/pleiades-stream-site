@@ -109,14 +109,18 @@
 							}
 				?>
 					<div class="stream-title" data-refresh="<?php print($endTime); ?>">
+					<?php if ($title) { ?>
 						<h2>
 							Currently showing:
 							<?php print($title); ?>
 						</h2>
+					<?php } ?>
+					<?php if ($startTime && $endTime) { ?>
 						<p>
 							Airing between:
 							<?php printf("%s - %s", date('h:i A', $startTime), date('h:i A', $endTime)); ?>
 						</p>
+					<?php } ?>
 					</div>
 				<?php
 						}
