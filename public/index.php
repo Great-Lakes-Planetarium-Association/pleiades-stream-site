@@ -29,20 +29,40 @@
 			}
 		</style>
 	<?php } ?>
+	<?php if (_vc($state, 'data', 'google_analytics')) { ?>
+	<script src="https://www.googletagmanager.com/gtag/js?id=<?php print(_vc($state, 'data', 'google_analytics')); ?>"
+		async></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', '<?php print(_vc($state, 'data', 'google_analytics')); ?>');
+	</script>
+	<?php } ?>
 	</head>
 	<body>
 		<header>
 			<div class="row">
 				<div class="column small-12 medium-2 large-1 logo">
-					<img src="images/logo.png" alt="GLPA logo" />
+					<img src="<?php print(_vc($state, 'data', 'logo')); ?>" alt="GLPA logo" />
 				</div>
 				<div class="column show-for-medium medium-7 large-9">
 					<h1><?php print(_vc($state, 'data', 'conference')); ?></h1>
 				</div>
 				<div class="column show-for-medium medium-3 large-2 text-right">
-					<a href="https://twitter.com/Pleiades_NPC" class="sobar" target="_blank" rel="noopener">
+				<?php if (_vc($state, 'data', 'twitter')) { ?>
+					<a href="https://twitter.com/<?php print(_vc($state, 'data', 'twitter', 'account')); ?>"
+						class="sobar" target="_blank" rel="noopener">
 						<span class="social micro twitter" title="Twitter">Twitter</span>
 					</a>
+				<?php } ?>
+				<?php if (_vc($state, 'data', 'facebook')) { ?>
+					<a href="https://twitter.com/<?php print(_vc($state, 'data', 'facebook', 'account')); ?>"
+						class="sobar" target="_blank" rel="noopener">
+						<span class="social micro facebook" title="Facebook">Facebook</span>
+					</a>
+				<?php } ?>
 				</div>
 			</div>
 		</header>
