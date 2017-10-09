@@ -58,7 +58,7 @@
 					</a>
 				<?php } ?>
 				<?php if (_vc($state, 'data', 'facebook')) { ?>
-					<a href="https://twitter.com/<?php print(_vc($state, 'data', 'facebook', 'account')); ?>"
+					<a href="https://facebook.com/<?php print(_vc($state, 'data', 'facebook', 'account')); ?>"
 						class="sobar" target="_blank" rel="noopener">
 						<span class="social micro facebook" title="Facebook">Facebook</span>
 					</a>
