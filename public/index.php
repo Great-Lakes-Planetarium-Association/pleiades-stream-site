@@ -79,8 +79,8 @@
 					$active		=	_vc($state, 'data', 'active');
 
 					//Set active data if necessary.
-					$active['day']		=	(!isset($active['day']) || !$active['day']) ? 0 : $active['day'];
-					$active['event']	=	(!isset($active['event']) || !$active['event']) ? 0 : $active['event'];
+					$active['day']		=	(!isset($active['day']) || !$active['day']) ? null : $active['day'];
+					$active['event']	=	(!isset($active['event']) || !$active['event']) ? null : $active['event'];
 
 					//Get the event data.
 					$eventDays	=	(!isset($eventDays)) ? _vc($state, 'data', 'event_days') : $eventDays;
@@ -126,6 +126,10 @@
 										$endTime	=	strtotime(sprintf("%s %s", $thisDay, _vc($nowStream, 'end_time')));
 									}
 								}
+							} else {
+								$title		=	"Intermission";
+								$startTime	=	0;
+								$endTime	=	time() + 60;
 							}
 				?>
 					<div class="stream-title" data-refresh="<?php print($endTime); ?>">

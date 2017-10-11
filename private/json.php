@@ -109,7 +109,7 @@
 	if (_vc($state, 'data', 'timezone')) date_default_timezone_set(_vc($state, 'data', 'timezone'));
 
 	//Set the event day as active.
-	$state -> data -> active	=	array('day' => 0, 'event' => 0, 'stream' => false);
+	$state -> data -> active	=	array('day' => null, 'event' => null, 'stream' => false);
 
 	//Get the events per day.
 	$eventDays =	_vc($state, 'data', 'event_days');
