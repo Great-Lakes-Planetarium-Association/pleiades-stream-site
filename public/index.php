@@ -79,8 +79,8 @@
 					$active		=	_vc($state, 'data', 'active');
 
 					//Set active data if necessary.
-					$active['day']		=	(!isset($active['day']) || !$active['day']) ? null : $active['day'];
-					$active['event']	=	(!isset($active['event']) || !$active['event']) ? null : $active['event'];
+					$active['day']		=	(!isset($active['day']) || is_null($active['day'])) ? null : $active['day'];
+					$active['event']	=	(!isset($active['event']) || is_null($active['event'])) ? null : $active['event'];
 
 					//Get the event data.
 					$eventDays	=	(!isset($eventDays)) ? _vc($state, 'data', 'event_days') : $eventDays;
