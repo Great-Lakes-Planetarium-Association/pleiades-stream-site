@@ -1,6 +1,6 @@
 {
 	"name": "pleiades-stream",
-	"version": "0.4.4",
+	"version": "0.4.5",
 	"description": "Foundation based SPA.",
 	"main": "index.js",
 	"scripts": {},
@@ -32,9 +32,9 @@
 		"jquery": "^3.2.1",
 		"jquery.cookie": "^1.4.1",
 		"jshint": "^2.9.4",
-		"npm-font-open-sans": "1.1.0", 
+		"npm-font-open-sans": "1.1.0",
 		"sobar": "^0.0.3",
-		"twitter-widgets": "^1.0.0",
+		"twitter-widgets": "^2.0.0",
 		"video.js": "5.11.7",
 		"videojs-contrib-hls": "3.6.1",
 		"yargs": "^8.0.1"

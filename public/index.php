@@ -291,7 +291,8 @@
 						<span class="launch-live-chat button" data-hide="false">Launch Live Chat Applet</span>
 					</div>
 					<hr />
-					<div id="twitter-widget" data-widget="<?php print(_vc($state, 'data', 'twitter', 'id')); ?>"></div>
+					<a class="twitter-timeline" data-height="640" data-theme="dark" data-link-color="#1779ba"
+						href="https://twitter.com/<?php print(_vc($state, 'data', 'twitter', 'username')); ?>"></a>
 				</aside>
 			</section>
 		</section>
