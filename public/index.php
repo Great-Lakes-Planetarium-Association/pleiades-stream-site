@@ -282,6 +282,7 @@
 					<?php include_once(__DIR__ . '/schedule.php'); ?>
 				</main>
 				<aside class="column small-12 medium-4">
+					<!--
 					<div id="chat">
 						<h2>Live Chat</h2>
 						<div class="responsive-embed">
@@ -291,8 +292,11 @@
 						<span class="launch-live-chat button" data-hide="false">Launch Live Chat Applet</span>
 					</div>
 					<hr />
-					<a class="twitter-timeline" data-height="640" data-theme="dark" data-link-color="#1779ba"
-						href="https://twitter.com/<?php print(_vc($state, 'data', 'twitter', 'username')); ?>"></a>
+					-->
+					<div id="twitter-statuses">
+						<h2>Recent Tweets</h2>
+						<div class="tweets"></div>
+					</div>
 				</aside>
 			</section>
 		</section>
