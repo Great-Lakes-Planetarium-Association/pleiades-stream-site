@@ -53,9 +53,9 @@
 			}
 
 			//If there are no years, minutes, or weeks, and there are seconds.
-			//if (!$diff -> y && !$diff -> m && !$diff -> d && $diff -> s) {
-			//	$dateText	.=	sprintf(" %s %s, ", $diff -> s, pluralize($diff -> s, "second"));
-			//}
+			if (!$dateText && $diff -> s) {
+				$dateText	.=	sprintf(" %s %s, ", $diff -> s, pluralize($diff -> s, "second"));
+			}
 
 			//Trim datetext.
 			$dateText	=	rtrim($dateText, ', ');
