@@ -36,7 +36,7 @@
 	});
 
 	if ($('#twitter-statuses').length > 0) {
-		setInterval(function() {
+		var	checkTweets	=	function() {
 			var $container	=	$('#twitter-statuses .tweets');
 
 			//Ajax for the vote.
@@ -61,7 +61,7 @@
 						html	+=	'</div>';
 						html	+=	v.text;
 						html	+=	'<p class="text-right"><small><a href="' + v.url +
-							'" target="_blank">Permalink</a></small></p>';
+							'" target="_blank">View Tweet</a></small></p>';
 						html	+=	'</div></div>';
 					});
 
@@ -75,7 +75,15 @@
 					$container.text('There are no recent tweets.');
 				}
 			});
-		}(), 15000);
+		};
+
+		//Initial check for tweets.
+		checkTweets();
+
+		//Set an interval.
+		setInterval(function() {
+			checkTweets();
+		}, 15000);
 	}
 
 	/*
