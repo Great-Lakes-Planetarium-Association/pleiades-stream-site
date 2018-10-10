@@ -1,0 +1,14 @@
+{
+    "name": "pxoink/pleiades-stream-site",
+    "type": "project",
+    "license": "UNLICENSED",
+    "authors": [
+        {
+            "name": "Brandon Raitt",
+            "email": "git@pxoink.net"
+        }
+    ],
+    "require": {
+        "abraham/twitteroauth": "0.9.2"
+    }
+}

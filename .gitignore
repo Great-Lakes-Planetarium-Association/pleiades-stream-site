@@ -35,5 +35,5 @@ vendor/
 node_modules/
 yarn.lock
 yarn-error.log
-*.json
+private/*.json
 *.ini
