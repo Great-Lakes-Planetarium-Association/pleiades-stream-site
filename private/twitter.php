@@ -30,7 +30,7 @@
 
 			//Search Twitter.
 			$results		=	$twitter -> get('search/tweets', array(
-				'q' => sprintf("#glpa%s OR @glpapltms", date('Y')),
+				'q' => sprintf("(#glpa%s OR from:glpapltms) AND filter:safe", date('Y')),
 				'result_type' => 'recent'
 			));
 
