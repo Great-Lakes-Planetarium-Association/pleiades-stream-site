@@ -44,7 +44,7 @@
 				url:		$('html').data('path') + '/tweets.php',
 				dataType:	'json',
 				type:		'GET',
-				success:	function (returnData) { console.log('run');
+				success:	function (returnData) {
 					var	data	=	returnData.data;
 					var html	=	'';
 

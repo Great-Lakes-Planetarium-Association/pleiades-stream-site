@@ -1,6 +1,6 @@
 <?php
-	//Autoload third-party software.
-	require_once(__DIR__ . '/../vendor/autoload.php');
+	//Autoload library.
+	require_once(__DIR__ . '/json.php');
 
 	//Declare libraries to use.
 	use Abraham\TwitterOAuth\TwitterOAuth;
