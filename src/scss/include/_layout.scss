@@ -1,19 +1,19 @@
 body {
-	background-position: center; 
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	font-family: $body-font-family;
-	
+
 	> * {
 		.row {
-			padding: $global-padding 0; 
-			background-color: darken($primary-color, 12.5%); 
+			padding: $global-padding 0;
+			background-color: darken($primary-color, 12.5%);
 		}
 	}
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: $body-font-family; 
+	font-family: $body-font-family;
 }
 
 .logo {
@@ -25,18 +25,18 @@ h1, h2, h3, h4, h5, h6 {
 .callout {
 	&.alert {
 		background-color: $alert-color;
-		color: $white; 
+		color: $white;
 	}
 }
 
 nav {
 	.menu {
 		li {
-			margin-bottom: $global-margin; 
+			margin-bottom: $global-margin;
 			margin-right: $global-margin;
-			
+
 			h3 {
-				padding: (0.5 * $global-padding) 0; 
+				padding: (0.5 * $global-padding) 0;
 			}
 		}
 	}
@@ -52,14 +52,14 @@ nav {
 
 h1 {
 	font-size: rem-calc(32);
-	
+
 	@include breakpoint(medium up) {
-		font-size: rem-calc(38); 
-	} 
+		font-size: rem-calc(38);
+	}
 }
 
 h2 {
-	font-size: rem-calc(22); 
+	font-size: rem-calc(22);
 }
 
 h3 {
@@ -69,19 +69,19 @@ h3 {
 #chat {
 	.responsive-embed {
 		padding-bottom: 125.00%;
-	} 
-	
+	}
+
 	.button {
-		width: 100.00%; 
+		width: 100.00%;
 	}
 }
 
 .tabs-title {
 	a {
 		&[aria-selected=true] {
-			background-color: $tab-background-active; 
+			background-color: $tab-background-active;
 		}
-	
+
 		&:hover {
 			background-color: $tab-background-active;
 		}
@@ -91,10 +91,10 @@ h3 {
 .tabs-content {
 	border: 1px solid $tab-background-active;
 	max-height: rem-calc(400);
-	overflow: auto; 
-	
+	overflow: auto;
+
 	@include breakpoint(small down) {
-		margin-top: $global-margin; 
+		margin-top: $global-margin;
 	}
 }
 
@@ -106,40 +106,76 @@ h3 {
 
 .table-scroll {
 	table {
-		margin: 0; 
+		margin: 0;
 		width: 100.00%;
-		
+
 		.main-event {
 			font-weight: bold;
 			background-color: $body-background;
-			
+
 			&.no-concurrent {
-				color: darken($white, 20%); 
-				background-color: darken($body-background, 5%); 
+				color: darken($white, 20%);
+				background-color: darken($body-background, 5%);
 			}
 		}
-		
+
 		.sub-event {
 			.concurrent {
-				vertical-align: top; 
+				vertical-align: top;
 			}
 		}
-		
+
 		.highlight {
 			background-color: $tab-background-active;
-			font-style: italic; 
-			
+			font-style: italic;
+
 			&.no-concurrent {
-				background-color: darken($tab-background-active, 10%); 
+				background-color: darken($tab-background-active, 10%);
 			}
 		}
 	}
 }
 
+.tweet {
+	background-color: $tab-content-background;
+	border-color: $tab-content-border;
+	color: $white;
+
+	img {
+		width: 100%;
+	}
+
+	h3 {
+		margin: 0;
+	}
+
+	a {
+		color: $white;
+		font-weight: bold;
+		text-decoration: underline;
+
+		&:hover {
+			color: $anchor-color;
+		}
+	}
+
+	.row {
+		margin-bottom: 1rem;
+		padding: 0;
+		background-color: transparent;
+	}
+
+	.social {
+		margin-bottom: -1px;
+		width: 1rem;
+		height: 1rem;
+	}
+}
+
 .asterisk {
-	color: darken($white, 10%); 
+	color: darken($white, 10%);
 }
 
 footer {
-	margin-top: $global-margin; 
+	margin-top: $global-margin;
 }

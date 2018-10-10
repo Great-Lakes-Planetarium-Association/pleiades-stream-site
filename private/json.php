@@ -1,4 +1,7 @@
 <?php
+	//Autoload third-party software.
+	require_once(__DIR__ . '/../vendor/autoload.php');
+
 	//Create a function if it does not exist.
 	if (!function_exists('_vc')) {
 		/**

@@ -17,7 +17,7 @@
 			$tweet	=	$twitterState -> data -> statuses[$i];
 
 			//Parse out the date time.
-			$date			=	DateTime::createFromFormat('M j H:i:s P Y', $tweet -> created_at);
+			$date			=	DateTime::createFromFormat('U', strtotime($tweet -> created_at));
 			$now			=	new DateTime('now');
 			$diff			=	$now -> diff($date);
 			$dateText		=	'';
@@ -53,9 +53,12 @@
 			}
 
 			//If there are no years, minutes, or weeks, and there are seconds.
-			if (!$diff -> y && !$diff -> m && !$diff -> d && $diff -> s) {
-				$dateText	.=	sprintf(" %s %s, ", $diff -> s, pluralize($diff -> s, "second"));
-			}
+			//if (!$diff -> y && !$diff -> m && !$diff -> d && $diff -> s) {
+			//	$dateText	.=	sprintf(" %s %s, ", $diff -> s, pluralize($diff -> s, "second"));
+			//}
+
+			//Trim datetext.
+			$dateText	=	rtrim($dateText, ', ');
 
 			//https://stackoverflow.com/a/1188652
 			$rexProtocol = '(https?://)?';
@@ -82,7 +85,7 @@
 
 			//Increment the data object.
 			$data[]			=	array(
-				'date' => "Tweeted $dateText ago",
+				'date' => $dateText,
 				'text' => $text,
 				'url' => sprintf("https://twitter.com/i/web/status/%s", $tweet -> id),
 				'user' => array(
@@ -92,10 +95,10 @@
 				)
 			);
 		}
-
-		//Output the tweets.
-		print(json_encode(array('status' => 'OK', 'data' => $data)));
 	}
+
+	//Output the tweets.
+	print(json_encode(array('status' => 'OK', 'data' => $data)));
 
 	function pluralize($n, $s) {
 		return ($n > 1) ? "{$s}s" : $s;

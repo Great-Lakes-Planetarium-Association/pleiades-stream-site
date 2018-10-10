@@ -1,6 +1,9 @@
 <?php
-	//Libraries. @todo Composer
-	require_once(__DIR__ . '/TwitterAPIExchange.php');
+	//Autoload third-party software.
+	require_once(__DIR__ . '/../vendor/autoload.php');
+
+	//Declare libraries to use.
+	use Abraham\TwitterOAuth\TwitterOAuth;
 
 	//Set the configuration options.
 	$config	=	parse_ini_file(__DIR__ . '/twitter.ini', true);
@@ -21,37 +24,29 @@
 			//Delete the file if it exists.
 			if (file_exists($filename)) unlink($filename);
 
-			//Set the request variables.
-			$baseUrl		=	"https://api.twitter.com/1.1/";
-			$requestUrl		=	"search/tweets.json?q=(%23glpa2018%20OR%20from%3A%40glpapltms)%20AND%20filter%3Asafe%20";
-			$method			=	"GET";
+			//Instantiate Twitter OAuth
+			$twitter		=	new TwitterOAuth($config['twitter']['api_key'], $config['twitter']['api_secret'],
+				$config['twitter']['oauth_token'], $config['twitter']['oauth_secret']);
 
-			//Create a new request.
-			$twitter		=	(new TwitterAPIExchange(array(
-				'oauth_access_token' => $config['twitter']['oauth_token'],
-				'oauth_access_token_secret' => $config['twitter']['oauth_secret'],
-				'consumer_key' => $config['twitter']['api_key'],
-				'consumer_secret' => $config['twitter']['api_secret']
-			)))
-				-> buildOauth($baseUrl . $requestUrl, $method)
-				-> performRequest();
+			//Search Twitter.
+			$results		=	$twitter -> get('search/tweets', array(
+				'q' => "(glpa2018 OR FROM @glpapltms)"
+			));
 
 			//Create a new standard class.
 			$twitterState	=	new \stdClass();
 
 			//Assign values.
 			$twitterState -> expires	=	time() + 150;
-			$twitterState -> data		=	json_decode($twitter);
-
-			var_dump($twitterState);
+			$twitterState -> data		=	$results;
 
 			//If there are no errors.
-			if (!isset($twitter -> data -> errors) || count($twitter -> data -> errors) < 1) {
+			if (!isset($results -> data -> errors) || count($results -> data -> errors) < 1) {
 				//Write to file.
 				file_put_contents($filename, json_encode($twitterState), LOCK_EX);
 			} else {
 				//For each error.
-				foreach($twitter -> data -> errors as $obj) {
+				foreach($results -> data -> errors as $obj) {
 					//Trigger an error.
 					trigger_error("[{$obj -> code}] {$obj -> message}");
 				}

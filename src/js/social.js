@@ -35,30 +35,33 @@
 		$('#chat .responsive-embed').slideToggle();
 	});
 
-	if ($('#twitter-statuses').length) {
+	if ($('#twitter-statuses').length > 0) {
 		setInterval(function() {
 			var $container	=	$('#twitter-statuses .tweets');
 
 			//Ajax for the vote.
 			$.ajax({
 				url:		$('html').data('path') + '/tweets.php',
+				dataType:	'json',
 				type:		'GET',
-				success:	function (returnData) {
+				success:	function (returnData) { console.log('run');
 					var	data	=	returnData.data;
 					var html	=	'';
 
 					$.each(data, function(k, v) {
-						html	+=	'<div class="card"><div class="card-section">';
+						html	+=	'<div class="card tweet"><div class="card-section">';
 						html	+=	'<div class="row">';
-						html	+=	'<div class="small-4"><img src="' + v.user.image + '" alt="' + v.user.name + '" /></div>';
-						html	+=	'<div class="small-8>'
+						html	+=	'<div class="column small-3"><img src="' + v.user.image + '" alt="' + v.user.name +
+							'" /></div>';
+						html	+=	'<div class="column small-9">';
 						html	+=	'<h3><a href="' + v.user.url + '" target="_blank">' + v.user.name + '</a></h3>';
-						html	+=	'<small>' + v.date + '</small>';
+						html	+=	'<span class="social twitter" title="Tweeted">Tweeted</span>' +
+							v.date + ' ago';
 						html	+=	'</div>';
 						html	+=	'</div>';
 						html	+=	v.text;
-						html	+=	'<p class="text-right"><small><a href="' + v.url
-							 + '" target="_blank">Permalink</a></small></p>';
+						html	+=	'<p class="text-right"><small><a href="' + v.url +
+							'" target="_blank">Permalink</a></small></p>';
 						html	+=	'</div></div>';
 					});
 
@@ -72,7 +75,7 @@
 					$container.text('There are no recent tweets.');
 				}
 			});
-		}, 15000);
+		}(), 15000);
 	}
 
 	/*
