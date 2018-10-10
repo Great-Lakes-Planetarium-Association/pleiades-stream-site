@@ -48,7 +48,7 @@
 		//Based on the override url.
 		if (!isset($_GET['override'])) {
 			//Set the resource url.
-			$resourceUrl	=	"https://live.pleiades2017.org/conference.json";
+			$resourceUrl	=	"https://live.glpa.org/conference.json";
 		} else {
 			//If there is a state expires.
 			if (_vc($state, 'expires')) {
@@ -56,7 +56,7 @@
 			}
 
 			//Set the resource url.
-			$resourceUrl	=	"https://live.pleiades2017.org/conference-override.json";
+			$resourceUrl	=	"https://live.glpa.org/conference-override.json";
 		}
 
 		//If the cache should be updated.

@@ -71,6 +71,7 @@
 
 					$container.text('There are no recent tweets.');
 				}
+			});
 		}, 15000);
 	}
 

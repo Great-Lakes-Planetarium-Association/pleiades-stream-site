@@ -10,7 +10,8 @@
 	$parsedUrl	=	parse_url($_SERVER['REQUEST_URI']);
 ?>
 <!DOCTYPE html>
-<html lang="en" data-path="<?php print(rtrim(pathinfo($parsedUrl['path'], PATHINFO_DIRNAME), '/')); ?>">
+<!--<html lang="en" data-path="<?php print(rtrim(pathinfo($parsedUrl['path'], PATHINFO_DIRNAME), '/')); ?>">-->
+<html lang="en" data-path="<?php print(rtrim($parsedUrl['path'], '/')); ?>">
 	<head>
 		<title>
 			Watch Live at the <?php print(_vc($state, 'data', 'host')); ?> in
