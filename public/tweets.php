@@ -90,7 +90,7 @@
 				'url' => sprintf("https://twitter.com/i/web/status/%s", $tweet -> id),
 				'user' => array(
 					'name' => $tweet -> user -> name,
-					'url' => sprintf("https://twitter.com/", $tweet -> user -> screen_name),
+					'url' => sprintf("https://twitter.com/%s", $tweet -> user -> screen_name),
 					'image' => $tweet -> user -> profile_image_url_https
 				)
 			);
