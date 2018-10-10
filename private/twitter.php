@@ -30,7 +30,8 @@
 
 			//Search Twitter.
 			$results		=	$twitter -> get('search/tweets', array(
-				'q' => "(glpa2018 OR FROM @glpapltms)"
+				'q' => sprintf("#glpa%s OR @glpapltms", date('Y')),
+				'result_type' => 'recent'
 			));
 
 			//Create a new standard class.
